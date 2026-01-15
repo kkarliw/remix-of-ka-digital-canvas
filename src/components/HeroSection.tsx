@@ -9,21 +9,28 @@ const HeroSection = () => {
     offset: ["start start", "end start"],
   });
 
-  // Soft Zoom animation
-  const scale = useTransform(scrollYProgress, [0, 0.5], [1, 2.5]);
-  const opacity = useTransform(scrollYProgress, [0, 0.3, 0.5], [1, 1, 0]);
-  const laptopOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0]);
+  // Zoom INTO the laptop screen effect
+  const laptopScale = useTransform(scrollYProgress, [0, 0.4, 0.7], [1, 1.8, 8]);
+  const laptopY = useTransform(scrollYProgress, [0, 0.4, 0.7], [0, 50, 200]);
   
-  // Parallax transforms
-  const textY = useTransform(scrollYProgress, [0, 0.5], [0, -50]);
-  const laptopY = useTransform(scrollYProgress, [0, 0.5], [0, -80]);
+  // Fade out elements as we zoom in
+  const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
+  const bezelOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0]);
+  const screenContentOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
+  const heroOpacity = useTransform(scrollYProgress, [0.6, 0.75], [1, 0]);
+  
+  // Parallax for text
+  const textY = useTransform(scrollYProgress, [0, 0.3], [0, -100]);
 
   return (
     <section
       ref={containerRef}
-      className="relative h-[200vh]"
+      className="relative h-[250vh]"
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]">
+      <motion.div 
+        style={{ opacity: heroOpacity }}
+        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
+      >
         {/* Subtle grain/dust texture overlay */}
         <div 
           className="absolute inset-0 opacity-[0.35] pointer-events-none"
@@ -49,17 +56,11 @@ const HeroSection = () => {
           }}
         />
 
-        <motion.div
-          style={{ scale, opacity: laptopOpacity }}
-          initial={{ scale: 0.97 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="relative w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-16 md:pt-24"
-        >
+        <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-16 md:pt-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
-            {/* Left Column - Text */}
+            {/* Left Column - Text (fades out first) */}
             <motion.div 
-              style={{ y: textY }}
+              style={{ y: textY, opacity: textOpacity }}
               className="order-2 lg:order-1 text-center lg:text-left"
             >
               <motion.h1
@@ -82,10 +83,13 @@ const HeroSection = () => {
               </motion.p>
             </motion.div>
 
-            {/* Right Column - Laptop Mockup */}
+            {/* Right Column - Laptop Mockup (zooms in as you scroll) */}
             <motion.div 
-              style={{ y: laptopY }}
-              className="order-1 lg:order-2"
+              style={{ 
+                scale: laptopScale,
+                y: laptopY,
+              }}
+              className="order-1 lg:order-2 origin-center"
             >
               <div className="relative" style={{ perspective: "2000px" }}>
                 <motion.div 
@@ -97,15 +101,29 @@ const HeroSection = () => {
                 >
                   {/* Screen */}
                   <div className="relative">
-                    {/* Screen bezel */}
-                    <div className="relative bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] p-[4px] md:p-[10px] shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_40px_100px_-30px_rgba(0,0,0,0.8)]">
+                    {/* Screen bezel - fades as we enter */}
+                    <motion.div 
+                      style={{ opacity: bezelOpacity }}
+                      className="absolute inset-0 bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_40px_100px_-30px_rgba(0,0,0,0.8)] pointer-events-none z-10"
+                    >
                       {/* Notch */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[100px] h-[14px] md:h-[28px] bg-[#1a1a1a] rounded-b-[10px] md:rounded-b-[18px] z-10 flex items-center justify-center">
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[100px] h-[14px] md:h-[28px] bg-[#1a1a1a] rounded-b-[10px] md:rounded-b-[18px] flex items-center justify-center">
                         <div className="w-[4px] h-[4px] md:w-[7px] md:h-[7px] rounded-full bg-[#0a0a0a] ring-1 ring-[#333]" />
+                      </div>
+                    </motion.div>
+
+                    {/* Actual screen with bezel padding */}
+                    <div className="relative bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] p-[4px] md:p-[10px]">
+                      {/* Notch spacer */}
+                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[100px] h-[14px] md:h-[28px] bg-[#1a1a1a] rounded-b-[10px] md:rounded-b-[18px] z-10 flex items-center justify-center opacity-0">
+                        <div className="w-[4px] h-[4px] md:w-[7px] md:h-[7px] rounded-full bg-[#0a0a0a]" />
                       </div>
                       
                       {/* Screen content - Website inside */}
-                      <div className="relative bg-[#fafafa] aspect-[16/10] rounded-[2px] md:rounded-[6px] overflow-hidden">
+                      <motion.div 
+                        style={{ opacity: screenContentOpacity }}
+                        className="relative bg-[#fafafa] aspect-[16/10] rounded-[2px] md:rounded-[6px] overflow-hidden"
+                      >
                         {/* Inner website content */}
                         <div className="absolute inset-0 flex flex-col">
                           {/* Navbar */}
@@ -117,11 +135,10 @@ const HeroSection = () => {
                           >
                             <span className="text-[8px] md:text-xs font-semibold text-[#0a0a0a] tracking-tight">K.A™</span>
                             <div className="flex items-center gap-2 md:gap-4">
-                              {['Home', 'Projects', 'About', 'Contact'].map((item, i) => (
+                              {['Home', 'Projects', 'About', 'Contact'].map((item) => (
                                 <span 
                                   key={item} 
                                   className="text-[6px] md:text-[10px] text-[#666] hover:text-[#0a0a0a] transition-colors"
-                                  style={{ animationDelay: `${0.9 + i * 0.1}s` }}
                                 >
                                   {item}
                                 </span>
@@ -160,22 +177,26 @@ const HeroSection = () => {
                             </motion.button>
                           </div>
                         </div>
-                      </div>
+                      </motion.div>
                     </div>
                     
-                    {/* Laptop hinge */}
-                    <div className="relative h-[6px] md:h-[14px] bg-gradient-to-b from-[#3a3a3a] via-[#2a2a2a] to-[#1a1a1a] rounded-b-[4px] md:rounded-b-[8px]">
+                    {/* Laptop hinge - fades out */}
+                    <motion.div 
+                      style={{ opacity: bezelOpacity }}
+                      className="relative h-[6px] md:h-[14px] bg-gradient-to-b from-[#3a3a3a] via-[#2a2a2a] to-[#1a1a1a] rounded-b-[4px] md:rounded-b-[8px]"
+                    >
                       <div className="absolute top-[1px] md:top-[3px] left-1/2 -translate-x-1/2 w-[60px] md:w-[160px] h-[2px] md:h-[5px] bg-gradient-to-b from-[#4a4a4a] to-[#3a3a3a] rounded-full" />
-                    </div>
+                    </motion.div>
                   </div>
                   
-                  {/* Keyboard base */}
-                  <div 
-                    className="relative h-[25px] sm:h-[35px] md:h-[70px] lg:h-[90px] bg-gradient-to-b from-[#2a2a2a] via-[#1e1e1e] to-[#151515] rounded-b-[6px] md:rounded-b-[16px] overflow-hidden"
-                    style={{
+                  {/* Keyboard base - fades out */}
+                  <motion.div 
+                    style={{ 
+                      opacity: bezelOpacity,
                       transformOrigin: "top center",
                       transform: "rotateX(-85deg)",
                     }}
+                    className="relative h-[25px] sm:h-[35px] md:h-[70px] lg:h-[90px] bg-gradient-to-b from-[#2a2a2a] via-[#1e1e1e] to-[#151515] rounded-b-[6px] md:rounded-b-[16px] overflow-hidden"
                   >
                     <div className="absolute inset-1.5 sm:inset-2 md:inset-4 bg-[#0e0e0e] rounded-[4px] md:rounded-[8px]">
                       <div className="absolute inset-1.5 sm:inset-2 md:inset-4 grid grid-cols-14 gap-[1px] md:gap-1">
@@ -185,11 +206,12 @@ const HeroSection = () => {
                       </div>
                       <div className="absolute bottom-1 sm:bottom-1.5 md:bottom-2.5 left-1/2 -translate-x-1/2 w-[35%] h-[5px] sm:h-[8px] md:h-[22px] bg-[#1a1a1a] rounded-[1px] md:rounded-md" />
                     </div>
-                  </div>
+                  </motion.div>
                 </motion.div>
                 
-                {/* Shadow */}
+                {/* Shadow - fades out */}
                 <motion.div 
+                  style={{ opacity: bezelOpacity }}
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
                   transition={{ delay: 0.7, duration: 0.8 }}
@@ -198,11 +220,11 @@ const HeroSection = () => {
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
 
         {/* Scroll indicator */}
         <motion.div
-          style={{ opacity }}
+          style={{ opacity: textOpacity }}
           className="absolute bottom-6 md:bottom-12 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
         >
           <motion.div
@@ -222,7 +244,7 @@ const HeroSection = () => {
             </motion.div>
           </motion.div>
         </motion.div>
-      </div>
+      </motion.div>
     </section>
   );
 };
