@@ -2,7 +2,8 @@ import { motion, useInView } from "framer-motion";
 import { useRef } from "react";
 import { Instagram, MessageCircle, ArrowUpRight, Mail } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoKA from "@/assets/logo-ka.png";
+import logoDark from "@/assets/logo-dark.jpg";
+import sandCloud from "@/assets/sand-cloud.png";
 
 const Footer = () => {
   const currentYear = new Date().getFullYear();
@@ -46,20 +47,17 @@ const Footer = () => {
   };
 
   return (
-    <footer ref={ref} className="relative py-16 md:py-24 bg-foreground text-background overflow-hidden">
-      {/* Background Logo Watermark with entrance animation */}
-      <motion.div 
-        className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden"
-        initial={{ opacity: 0, scale: 1.2 }}
-        animate={isInView ? { opacity: 0.03, scale: 1 } : { opacity: 0, scale: 1.2 }}
-        transition={{ duration: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-      >
-        <img 
-          src={logoKA} 
-          alt="" 
-          className="w-[80vw] max-w-[800px] h-auto invert"
-        />
-      </motion.div>
+    <footer ref={ref} className="relative py-16 md:py-24 bg-black text-white overflow-hidden">
+      {/* Sand cloud background - inverted to contrast with black */}
+      <div 
+        className="absolute inset-0 opacity-20 pointer-events-none"
+        style={{
+          backgroundImage: `url(${sandCloud})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center bottom',
+          filter: 'invert(1)',
+        }}
+      />
 
       <motion.div 
         className="container-custom relative z-10"
@@ -72,15 +70,15 @@ const Footer = () => {
           {/* Left side - Branding */}
           <motion.div variants={revealVariants} className="lg:col-span-1">
             <motion.img 
-              src={logoKA} 
+              src={logoDark} 
               alt="Design by K.A™" 
-              className="h-14 md:h-20 w-auto mb-6 invert"
+              className="h-14 md:h-20 w-auto mb-6"
               initial={{ opacity: 0, x: -30 }}
               animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: -30 }}
               transition={{ duration: 0.7, delay: 0.3 }}
             />
             <motion.p 
-              className="text-lg md:text-xl text-background/70 max-w-md mb-8"
+              className="text-lg md:text-xl text-white/70 max-w-md mb-8"
               initial={{ opacity: 0 }}
               animate={isInView ? { opacity: 1 } : { opacity: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
@@ -99,7 +97,7 @@ const Footer = () => {
                 href="https://instagram.com/designbyka__"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 border border-background/20 rounded-xl hover:border-background/50 hover:bg-background/5 transition-all duration-300 group"
+                className="flex items-center gap-2 px-5 py-3 border border-white/20 rounded-xl hover:border-white/50 hover:bg-white/5 transition-all duration-300 group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -112,7 +110,7 @@ const Footer = () => {
                 href="https://wa.me/573107086902"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-5 py-3 bg-background text-foreground rounded-xl hover:bg-background/90 transition-all duration-300 group"
+                className="flex items-center gap-2 px-5 py-3 bg-white text-black rounded-xl hover:bg-white/90 transition-all duration-300 group"
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
@@ -125,21 +123,20 @@ const Footer = () => {
 
           {/* Center - Contact Info */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
-            <h3 className="text-sm uppercase tracking-widest text-background/40 mb-4">Contacto</h3>
+            <h3 className="text-sm uppercase tracking-widest text-white/40 mb-4">Contacto</h3>
             <div className="space-y-3 mb-8">
               <motion.a 
                 href="mailto:designbyka.studio@gmail.com" 
-                className="flex items-center gap-2 text-background/80 hover:text-background transition-colors group"
+                className="flex items-center gap-2 text-white/80 hover:text-white transition-colors group"
                 whileHover={{ x: 4 }}
               >
                 <Mail className="w-4 h-4" />
                 <span className="text-base">designbyka.studio@gmail.com</span>
               </motion.a>
-              <p className="text-lg text-background/80">@designbyka__</p>
-              <p className="text-lg text-background/80">+57 310 708 6902</p>
+              <p className="text-lg text-white/80">@designbyka__</p>
             </div>
 
-            <h3 className="text-sm uppercase tracking-widest text-background/40 mb-4">Stack tecnológico</h3>
+            <h3 className="text-sm uppercase tracking-widest text-white/40 mb-4">Stack tecnológico</h3>
             <motion.p 
               className="text-2xl md:text-3xl font-semibold mb-2"
               initial={{ opacity: 0, x: -20 }}
@@ -148,23 +145,23 @@ const Footer = () => {
             >
               React
             </motion.p>
-            <p className="text-background/60">& tecnologías modernas</p>
+            <p className="text-white/60">& tecnologías modernas</p>
           </motion.div>
 
           {/* Right side - Legal */}
           <motion.div variants={itemVariants} className="lg:col-span-1 lg:text-right">
-            <h3 className="text-sm uppercase tracking-widest text-background/40 mb-4">Legal</h3>
+            <h3 className="text-sm uppercase tracking-widest text-white/40 mb-4">Legal</h3>
             <Link 
               to="/terminos" 
-              className="inline-flex items-center gap-2 text-background/80 hover:text-background transition-colors group"
+              className="inline-flex items-center gap-2 text-white/80 hover:text-white transition-colors group"
             >
               <span className="text-base">Términos y Condiciones</span>
               <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 group-hover:opacity-100 group-hover:translate-x-0 transition-all" />
             </Link>
             
             <div className="mt-8">
-              <h3 className="text-sm uppercase tracking-widest text-background/40 mb-4">Política de pagos</h3>
-              <p className="text-sm text-background/60 max-w-xs lg:ml-auto">
+              <h3 className="text-sm uppercase tracking-widest text-white/40 mb-4">Política de pagos</h3>
+              <p className="text-sm text-white/60 max-w-xs lg:ml-auto">
                 Todos los proyectos se inician con anticipo del 50%. El alcance y funcionalidades se definen antes de iniciar el desarrollo.
               </p>
             </div>
@@ -173,7 +170,7 @@ const Footer = () => {
 
         {/* Divider with enhanced animation */}
         <motion.div
-          className="h-px bg-background/10 mb-8"
+          className="h-px bg-white/10 mb-8"
           initial={{ scaleX: 0, opacity: 0 }}
           animate={isInView ? { scaleX: 1, opacity: 1 } : { scaleX: 0, opacity: 0 }}
           transition={{ duration: 1, delay: 0.6, ease: [0.25, 0.46, 0.45, 0.94] }}
@@ -187,13 +184,13 @@ const Footer = () => {
           transition={{ duration: 0.6, delay: 0.8 }}
           className="flex flex-col md:flex-row items-start md:items-center justify-between gap-4"
         >
-          <p className="text-sm text-background/50">
+          <p className="text-sm text-white/50">
             © {currentYear} Design by K.A™. Todos los derechos reservados.
           </p>
 
           <Link 
             to="/terminos" 
-            className="text-xs text-background/40 hover:text-background/60 transition-colors"
+            className="text-xs text-white/40 hover:text-white/60 transition-colors"
           >
             Ver términos y condiciones completos
           </Link>

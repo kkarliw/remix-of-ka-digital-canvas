@@ -1,12 +1,17 @@
 import { motion, useInView } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useEffect } from "react";
 import { ArrowLeft, Mail, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import logoKa from "@/assets/logo-ka.png";
+import logoLight from "@/assets/logo-light.jpg";
 
 const TermsPage = () => {
   const ref = useRef(null);
   const isInView = useInView(ref, { once: true, margin: "-50px" });
+
+  // Scroll to top on mount
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="min-h-screen bg-background">
@@ -15,14 +20,14 @@ const TermsPage = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className="fixed top-0 left-0 right-0 z-50 bg-background/90 backdrop-blur-lg border-b border-border/30"
+        className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-20">
           <Link to="/" className="flex items-center gap-3">
             <img 
-              src={logoKa} 
+              src={logoLight} 
               alt="Design by K.A™" 
-              className="h-10 md:h-12 w-auto object-contain"
+              className="h-10 md:h-14 w-auto object-contain"
             />
           </Link>
           <Link 
@@ -304,7 +309,7 @@ const TermsPage = () => {
                 className="flex items-center gap-2 text-foreground hover:text-foreground/70 transition-colors"
               >
                 <MessageCircle className="w-4 h-4" />
-                <span className="text-sm">+57 310 708 6902</span>
+                <span className="text-sm">WhatsApp</span>
               </a>
             </div>
           </motion.div>
