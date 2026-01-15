@@ -1,6 +1,7 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
+import macbookImage from "@/assets/macbook-pro-16.png";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -29,33 +30,8 @@ const HeroSection = () => {
     >
       <motion.div 
         style={{ opacity: heroOpacity }}
-        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-[#0a0a0a]"
+        className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black"
       >
-        {/* Subtle grain/dust texture overlay */}
-        <div 
-          className="absolute inset-0 opacity-[0.35] pointer-events-none"
-          style={{
-            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`,
-          }}
-        />
-        
-        {/* Subtle animated depth layer */}
-        <motion.div 
-          className="absolute inset-0 pointer-events-none"
-          animate={{ 
-            backgroundPosition: ['0% 0%', '100% 100%'],
-          }}
-          transition={{ 
-            duration: 60, 
-            repeat: Infinity, 
-            repeatType: "reverse",
-            ease: "linear" 
-          }}
-          style={{
-            background: 'radial-gradient(ellipse 80% 50% at 50% 50%, rgba(40,40,40,0.3) 0%, transparent 70%)',
-          }}
-        />
-
         <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-16 md:pt-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Column - Text (fades out first) */}
@@ -91,132 +67,64 @@ const HeroSection = () => {
               }}
               className="order-1 lg:order-2 origin-center"
             >
-              <div className="relative" style={{ perspective: "2000px" }}>
+              <div className="relative">
                 <motion.div 
-                  initial={{ rotateX: 15, opacity: 0, y: 60 }}
-                  animate={{ rotateX: 4, opacity: 1, y: 0 }}
+                  initial={{ opacity: 0, y: 60 }}
+                  animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="relative"
-                  style={{ transformStyle: "preserve-3d" }}
                 >
-                  {/* Screen */}
-                  <div className="relative">
-                    {/* Screen bezel - fades as we enter */}
-                    <motion.div 
-                      style={{ opacity: bezelOpacity }}
-                      className="absolute inset-0 bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] shadow-[0_0_0_1px_rgba(255,255,255,0.08),0_40px_100px_-30px_rgba(0,0,0,0.8)] pointer-events-none z-10"
-                    >
-                      {/* Notch */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[100px] h-[14px] md:h-[28px] bg-[#1a1a1a] rounded-b-[10px] md:rounded-b-[18px] flex items-center justify-center">
-                        <div className="w-[4px] h-[4px] md:w-[7px] md:h-[7px] rounded-full bg-[#0a0a0a] ring-1 ring-[#333]" />
-                      </div>
-                    </motion.div>
-
-                    {/* Actual screen with bezel padding */}
-                    <div className="relative bg-[#1a1a1a] rounded-t-[12px] md:rounded-t-[20px] p-[4px] md:p-[10px]">
-                      {/* Notch spacer */}
-                      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[50px] md:w-[100px] h-[14px] md:h-[28px] bg-[#1a1a1a] rounded-b-[10px] md:rounded-b-[18px] z-10 flex items-center justify-center opacity-0">
-                        <div className="w-[4px] h-[4px] md:w-[7px] md:h-[7px] rounded-full bg-[#0a0a0a]" />
-                      </div>
-                      
-                      {/* Screen content - Website inside */}
-                      <motion.div 
-                        style={{ opacity: screenContentOpacity }}
-                        className="relative bg-[#fafafa] aspect-[16/10] rounded-[2px] md:rounded-[6px] overflow-hidden"
-                      >
-                        {/* Inner website content */}
-                        <div className="absolute inset-0 flex flex-col">
-                          {/* Navbar */}
-                          <motion.div 
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            transition={{ delay: 0.9, duration: 0.5 }}
-                            className="flex items-center justify-between px-3 md:px-6 py-2 md:py-4 border-b border-black/5"
-                          >
-                            <span className="text-[8px] md:text-xs font-semibold text-[#0a0a0a] tracking-tight">K.A™</span>
-                            <div className="flex items-center gap-2 md:gap-4">
-                              {['Home', 'Projects', 'About', 'Contact'].map((item) => (
-                                <span 
-                                  key={item} 
-                                  className="text-[6px] md:text-[10px] text-[#666] hover:text-[#0a0a0a] transition-colors"
-                                >
-                                  {item}
-                                </span>
-                              ))}
-                            </div>
-                          </motion.div>
-                          
-                          {/* Main content area */}
-                          <div className="flex-1 flex flex-col items-center justify-center p-4 md:p-8">
-                            <motion.h2
-                              initial={{ opacity: 0, y: 20 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 1, duration: 0.6 }}
-                              className="text-[clamp(0.8rem,3vw,2.5rem)] font-bold text-[#0a0a0a] tracking-[-0.02em] text-center leading-tight"
-                            >
-                              Websites & Branding
-                            </motion.h2>
-                            
-                            <motion.p
-                              initial={{ opacity: 0, y: 15 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 1.1, duration: 0.5 }}
-                              className="text-[7px] md:text-sm text-[#888] mt-2 md:mt-4 text-center max-w-[80%]"
-                            >
-                              Creative studio crafting digital experiences
-                            </motion.p>
-                            
-                            <motion.button
-                              initial={{ opacity: 0, y: 15 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 1.2, duration: 0.5 }}
-                              className="mt-3 md:mt-6 px-3 md:px-5 py-1.5 md:py-2.5 bg-[#0a0a0a] text-white text-[7px] md:text-xs rounded-full font-medium flex items-center gap-1 md:gap-2"
-                            >
-                              View Projects
-                              <ArrowDown className="w-2 h-2 md:w-3 md:h-3" />
-                            </motion.button>
-                          </div>
-                        </div>
-                      </motion.div>
-                    </div>
-                    
-                    {/* Laptop hinge - fades out */}
-                    <motion.div 
-                      style={{ opacity: bezelOpacity }}
-                      className="relative h-[6px] md:h-[14px] bg-gradient-to-b from-[#3a3a3a] via-[#2a2a2a] to-[#1a1a1a] rounded-b-[4px] md:rounded-b-[8px]"
-                    >
-                      <div className="absolute top-[1px] md:top-[3px] left-1/2 -translate-x-1/2 w-[60px] md:w-[160px] h-[2px] md:h-[5px] bg-gradient-to-b from-[#4a4a4a] to-[#3a3a3a] rounded-full" />
-                    </motion.div>
-                  </div>
+                  {/* MacBook Image */}
+                  <motion.img 
+                    src={macbookImage}
+                    alt="MacBook Pro"
+                    style={{ opacity: bezelOpacity }}
+                    className="w-full h-auto relative z-10"
+                  />
                   
-                  {/* Keyboard base - fades out */}
+                  {/* Screen content overlay - positioned on the laptop screen */}
                   <motion.div 
-                    style={{ 
-                      opacity: bezelOpacity,
-                      transformOrigin: "top center",
-                      transform: "rotateX(-85deg)",
+                    className="absolute z-20"
+                    style={{
+                      top: '3%',
+                      left: '10%',
+                      width: '55%',
+                      height: '45%',
+                      opacity: screenContentOpacity,
                     }}
-                    className="relative h-[25px] sm:h-[35px] md:h-[70px] lg:h-[90px] bg-gradient-to-b from-[#2a2a2a] via-[#1e1e1e] to-[#151515] rounded-b-[6px] md:rounded-b-[16px] overflow-hidden"
                   >
-                    <div className="absolute inset-1.5 sm:inset-2 md:inset-4 bg-[#0e0e0e] rounded-[4px] md:rounded-[8px]">
-                      <div className="absolute inset-1.5 sm:inset-2 md:inset-4 grid grid-cols-14 gap-[1px] md:gap-1">
-                        {Array.from({ length: 42 }).map((_, i) => (
-                          <div key={i} className="bg-[#1a1a1a] rounded-[1px] h-[2px] sm:h-[3px] md:h-2.5" />
-                        ))}
+                    {/* Attractive gradient content inside screen */}
+                    <div className="w-full h-full rounded-[2px] overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500">
+                      <div className="absolute inset-0 flex flex-col items-center justify-center p-2 md:p-4">
+                        {/* Floating shapes for visual interest */}
+                        <div className="absolute top-2 left-2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-white/20 blur-sm" />
+                        <div className="absolute bottom-4 right-3 w-6 h-6 md:w-12 md:h-12 rounded-full bg-yellow-300/30 blur-md" />
+                        <div className="absolute top-1/3 right-1/4 w-3 h-3 md:w-6 md:h-6 rounded-full bg-cyan-300/40" />
+                        
+                        {/* Content */}
+                        <motion.div 
+                          initial={{ opacity: 0, scale: 0.9 }}
+                          animate={{ opacity: 1, scale: 1 }}
+                          transition={{ delay: 0.9, duration: 0.6 }}
+                          className="text-center relative z-10"
+                        >
+                          <span className="text-[6px] md:text-[10px] font-medium text-white/80 uppercase tracking-[0.2em]">Creative Studio</span>
+                          <h2 className="text-[10px] md:text-xl lg:text-2xl font-bold text-white mt-1 md:mt-2 tracking-tight">
+                            Design & Code
+                          </h2>
+                          <p className="text-[6px] md:text-[10px] text-white/70 mt-1 max-w-[90%] mx-auto">
+                            Crafting digital experiences
+                          </p>
+                          <div className="flex items-center justify-center gap-1 md:gap-2 mt-2 md:mt-3">
+                            <span className="px-2 py-0.5 md:px-3 md:py-1 bg-white text-[6px] md:text-[9px] text-purple-600 font-semibold rounded-full">
+                              View Work
+                            </span>
+                          </div>
+                        </motion.div>
                       </div>
-                      <div className="absolute bottom-1 sm:bottom-1.5 md:bottom-2.5 left-1/2 -translate-x-1/2 w-[35%] h-[5px] sm:h-[8px] md:h-[22px] bg-[#1a1a1a] rounded-[1px] md:rounded-md" />
                     </div>
                   </motion.div>
                 </motion.div>
-                
-                {/* Shadow - fades out */}
-                <motion.div 
-                  style={{ opacity: bezelOpacity }}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7, duration: 0.8 }}
-                  className="absolute -bottom-4 md:-bottom-10 left-1/2 -translate-x-1/2 w-[75%] h-[15px] md:h-[45px] bg-white/10 blur-2xl md:blur-3xl rounded-full" 
-                />
               </div>
             </motion.div>
           </div>
