@@ -1,9 +1,11 @@
 import { motion, useScroll, useTransform } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { ArrowDown, Sparkles, Zap } from "lucide-react";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [initialAnimationComplete, setInitialAnimationComplete] = useState(false);
+  
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
@@ -19,7 +21,17 @@ const HeroSection = () => {
       ref={containerRef}
       className="relative h-[200vh]"
     >
-      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden pt-16 md:pt-24">
+      {/* Cinematic initial overlay */}
+      <motion.div
+        initial={{ opacity: 1 }}
+        animate={{ opacity: 0 }}
+        transition={{ duration: 0.8, delay: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+        onAnimationComplete={() => setInitialAnimationComplete(true)}
+        className="fixed inset-0 z-30 bg-foreground pointer-events-none"
+        style={{ display: initialAnimationComplete ? 'none' : 'block' }}
+      />
+      
+      <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden pt-18 md:pt-24">
         {/* Subtle background grid */}
         <div className="absolute inset-0 opacity-[0.02]">
           <div className="absolute inset-0" style={{
@@ -54,9 +66,9 @@ const HeroSection = () => {
           {/* MacBook Pro Style Frame - Premium Design */}
           <div className="relative" style={{ perspective: "2000px" }}>
             <motion.div 
-              initial={{ rotateX: 15, opacity: 0, y: 60 }}
-              animate={{ rotateX: 4, opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+              initial={{ rotateX: 20, opacity: 0, y: 80, scale: 1.15 }}
+              animate={{ rotateX: 4, opacity: 1, y: 0, scale: 1 }}
+              transition={{ duration: 1.4, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
               className="relative transition-transform duration-500"
               style={{ 
                 transformStyle: "preserve-3d",
@@ -81,7 +93,7 @@ const HeroSection = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 20, scale: 0.9 }}
                         animate={{ opacity: 1, y: 0, scale: 1 }}
-                        transition={{ delay: 0.4, duration: 0.6 }}
+                        transition={{ delay: 0.9, duration: 0.6 }}
                         className="flex items-center gap-1.5 mb-2 sm:mb-4 md:mb-6 px-2 sm:px-4 py-1 sm:py-2 bg-foreground/5 backdrop-blur-sm rounded-full border border-foreground/10"
                       >
                         <Sparkles className="w-2.5 h-2.5 sm:w-3.5 sm:h-3.5 md:w-4 md:h-4 text-foreground/70" />
@@ -90,11 +102,11 @@ const HeroSection = () => {
                         </span>
                       </motion.div>
                       
-                      {/* Main headline - responsive sizing */}
+                      {/* Main headline - responsive sizing with cinematic reveal */}
                       <motion.h1
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.6, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                        initial={{ opacity: 0, y: 50, scale: 0.95 }}
+                        animate={{ opacity: 1, y: 0, scale: 1 }}
+                        transition={{ delay: 1, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                         className="text-[clamp(1.1rem,5.5vw,5rem)] font-bold leading-[1] tracking-[-0.03em]"
                       >
                         <span className="block">Creamos</span>
@@ -108,7 +120,7 @@ const HeroSection = () => {
                       <motion.p
                         initial={{ opacity: 0, y: 30 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 0.85, duration: 0.7 }}
+                        transition={{ delay: 1.2, duration: 0.7 }}
                         className="text-muted-foreground mt-2 sm:mt-4 md:mt-6 max-w-[200px] sm:max-w-xs md:max-w-lg text-[clamp(0.55rem,1.3vw,1.1rem)] leading-relaxed"
                       >
                         <span className="hidden sm:inline">Diseño y desarrollo web moderno para marcas que buscan </span>
@@ -120,7 +132,7 @@ const HeroSection = () => {
                       <motion.div
                         initial={{ opacity: 0, y: 20 }}
                         animate={{ opacity: 1, y: 0 }}
-                        transition={{ delay: 1, duration: 0.6 }}
+                        transition={{ delay: 1.4, duration: 0.6 }}
                         className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2 md:gap-3 mt-3 sm:mt-5 md:mt-8"
                       >
                         {[
@@ -131,7 +143,7 @@ const HeroSection = () => {
                             key={item.text}
                             initial={{ opacity: 0, scale: 0.8 }}
                             animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 1.1 + i * 0.1, duration: 0.4 }}
+                            transition={{ delay: 1.5 + i * 0.1, duration: 0.4 }}
                             className="flex items-center gap-1 px-2 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full text-[8px] sm:text-[10px] md:text-xs text-muted-foreground"
                           >
                             <item.icon className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
@@ -186,7 +198,7 @@ const HeroSection = () => {
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.3, duration: 0.5 }}
+            transition={{ delay: 1.8, duration: 0.5 }}
             className="flex flex-col items-center gap-1.5"
           >
             <span className="text-[9px] md:text-xs text-muted-foreground uppercase tracking-[0.2em] font-medium">
