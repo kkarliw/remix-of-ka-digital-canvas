@@ -82,45 +82,57 @@ const HeroSection = () => {
                     className="w-full h-auto relative z-10"
                   />
                   
-                  {/* Screen content overlay - positioned on the laptop screen */}
+                  {/* Screen content overlay - positioned on the laptop screen with perspective */}
                   <motion.div 
-                    className="absolute z-20"
+                    className="absolute z-0"
                     style={{
-                      top: '3%',
-                      left: '10%',
-                      width: '55%',
-                      height: '45%',
+                      top: '2.5%',
+                      left: '12.5%',
+                      width: '51%',
+                      height: '36%',
                       opacity: screenContentOpacity,
+                      transform: 'perspective(1000px) rotateY(-8deg) rotateX(2deg) skewY(1deg)',
+                      transformOrigin: 'center center',
                     }}
                   >
-                    {/* Attractive gradient content inside screen */}
-                    <div className="w-full h-full rounded-[2px] overflow-hidden bg-gradient-to-br from-violet-500 via-purple-500 to-fuchsia-500">
-                      <div className="absolute inset-0 flex flex-col items-center justify-center p-2 md:p-4">
-                        {/* Floating shapes for visual interest */}
-                        <div className="absolute top-2 left-2 w-4 h-4 md:w-8 md:h-8 rounded-full bg-white/20 blur-sm" />
-                        <div className="absolute bottom-4 right-3 w-6 h-6 md:w-12 md:h-12 rounded-full bg-yellow-300/30 blur-md" />
-                        <div className="absolute top-1/3 right-1/4 w-3 h-3 md:w-6 md:h-6 rounded-full bg-cyan-300/40" />
-                        
-                        {/* Content */}
-                        <motion.div 
-                          initial={{ opacity: 0, scale: 0.9 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          transition={{ delay: 0.9, duration: 0.6 }}
-                          className="text-center relative z-10"
-                        >
-                          <span className="text-[6px] md:text-[10px] font-medium text-white/80 uppercase tracking-[0.2em]">Creative Studio</span>
-                          <h2 className="text-[10px] md:text-xl lg:text-2xl font-bold text-white mt-1 md:mt-2 tracking-tight">
-                            Design & Code
-                          </h2>
-                          <p className="text-[6px] md:text-[10px] text-white/70 mt-1 max-w-[90%] mx-auto">
-                            Crafting digital experiences
-                          </p>
-                          <div className="flex items-center justify-center gap-1 md:gap-2 mt-2 md:mt-3">
-                            <span className="px-2 py-0.5 md:px-3 md:py-1 bg-white text-[6px] md:text-[9px] text-purple-600 font-semibold rounded-full">
-                              View Work
-                            </span>
+                    {/* Clean white content inside screen */}
+                    <div className="w-full h-full rounded-sm overflow-hidden bg-white shadow-inner">
+                      <div className="w-full h-full flex flex-col">
+                        {/* Mini navbar */}
+                        <div className="flex items-center justify-between px-2 md:px-4 py-1 md:py-2 border-b border-gray-100">
+                          <span className="text-[5px] md:text-[9px] font-bold text-gray-900 tracking-tight">K.A™</span>
+                          <div className="flex items-center gap-1 md:gap-3">
+                            {['Home', 'Work', 'About', 'Contact'].map((item) => (
+                              <span key={item} className="text-[4px] md:text-[7px] text-gray-500">{item}</span>
+                            ))}
                           </div>
-                        </motion.div>
+                        </div>
+                        
+                        {/* Main content */}
+                        <div className="flex-1 flex flex-col items-center justify-center px-2 md:px-6">
+                          <motion.div 
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1, duration: 0.6 }}
+                            className="text-center"
+                          >
+                            <span className="text-[4px] md:text-[8px] font-medium text-gray-400 uppercase tracking-[0.15em]">Creative Studio</span>
+                            <h2 className="text-[8px] md:text-base lg:text-lg font-bold text-gray-900 mt-0.5 md:mt-1 tracking-tight leading-tight">
+                              Websites & Branding
+                            </h2>
+                            <p className="text-[4px] md:text-[8px] text-gray-500 mt-0.5 md:mt-1">
+                              Crafting premium digital experiences
+                            </p>
+                            <div className="flex items-center justify-center gap-1 md:gap-2 mt-1 md:mt-3">
+                              <span className="px-1.5 py-0.5 md:px-3 md:py-1 bg-gray-900 text-[4px] md:text-[7px] text-white font-medium rounded-full">
+                                View Projects
+                              </span>
+                              <span className="px-1.5 py-0.5 md:px-3 md:py-1 border border-gray-300 text-[4px] md:text-[7px] text-gray-600 font-medium rounded-full">
+                                Contact
+                              </span>
+                            </div>
+                          </motion.div>
+                        </div>
                       </div>
                     </div>
                   </motion.div>
