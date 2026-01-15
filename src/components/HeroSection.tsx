@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import macbookImage from "@/assets/macbook-pro-16.png";
+import sandCloud from "@/assets/sand-cloud.png";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -32,6 +33,17 @@ const HeroSection = () => {
         style={{ opacity: heroOpacity }}
         className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black"
       >
+        {/* Sand cloud background - inverted to contrast with black */}
+        <div 
+          className="absolute inset-0 opacity-30"
+          style={{
+            backgroundImage: `url(${sandCloud})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center bottom',
+            filter: 'invert(1)',
+          }}
+        />
+        
         <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-16 md:pt-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Column - Text (fades out first) */}
@@ -76,16 +88,14 @@ const HeroSection = () => {
                 >
                   {/* Screen content overlay - positioned exactly on the laptop screen */}
                   <motion.div 
-                    className="absolute z-[15]"
+                    className="absolute z-[5]"
                     style={{
-                      top: '3%',
-                      left: '13%',
-                      width: '50%',
-                      height: '34%',
+                      top: '4%',
+                      left: '11%',
+                      width: '78%',
+                      height: '51%',
                       opacity: screenContentOpacity,
-                      transform: 'perspective(1000px) rotateY(-10deg) rotateX(2.5deg) skewY(1.8deg)',
-                      transformOrigin: 'left center',
-                      borderRadius: '4px',
+                      borderRadius: '6px',
                       overflow: 'hidden',
                     }}
                   >
@@ -93,35 +103,35 @@ const HeroSection = () => {
                     <div className="w-full h-full bg-white">
                       <div className="w-full h-full flex flex-col">
                         {/* Mini navbar */}
-                        <div className="flex items-center justify-between px-2 md:px-4 py-1 md:py-2 border-b border-gray-100">
-                          <span className="text-[5px] md:text-[9px] font-bold text-gray-900 tracking-tight">K.A™</span>
-                          <div className="flex items-center gap-1 md:gap-3">
+                        <div className="flex items-center justify-between px-3 md:px-6 py-2 md:py-3 border-b border-gray-100">
+                          <span className="text-[8px] md:text-sm font-bold text-gray-900 tracking-tight">BYK.A™</span>
+                          <div className="flex items-center gap-2 md:gap-4">
                             {['Home', 'Work', 'About', 'Contact'].map((item) => (
-                              <span key={item} className="text-[4px] md:text-[7px] text-gray-500">{item}</span>
+                              <span key={item} className="text-[6px] md:text-xs text-gray-500">{item}</span>
                             ))}
                           </div>
                         </div>
                         
                         {/* Main content */}
-                        <div className="flex-1 flex flex-col items-center justify-center px-2 md:px-6">
+                        <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8">
                           <motion.div 
                             initial={{ opacity: 0, y: 10 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: 1, duration: 0.6 }}
                             className="text-center"
                           >
-                            <span className="text-[4px] md:text-[8px] font-medium text-gray-400 uppercase tracking-[0.15em]">Creative Studio</span>
-                            <h2 className="text-[8px] md:text-base lg:text-lg font-bold text-gray-900 mt-0.5 md:mt-1 tracking-tight leading-tight">
+                            <span className="text-[6px] md:text-xs font-medium text-gray-400 uppercase tracking-[0.15em]">Creative Studio</span>
+                            <h2 className="text-sm md:text-2xl lg:text-3xl font-bold text-gray-900 mt-1 md:mt-2 tracking-tight leading-tight">
                               Websites & Branding
                             </h2>
-                            <p className="text-[4px] md:text-[8px] text-gray-500 mt-0.5 md:mt-1">
+                            <p className="text-[7px] md:text-sm text-gray-500 mt-1 md:mt-2">
                               Crafting premium digital experiences
                             </p>
-                            <div className="flex items-center justify-center gap-1 md:gap-2 mt-1 md:mt-3">
-                              <span className="px-1.5 py-0.5 md:px-3 md:py-1 bg-gray-900 text-[4px] md:text-[7px] text-white font-medium rounded-full">
+                            <div className="flex items-center justify-center gap-2 md:gap-3 mt-2 md:mt-4">
+                              <span className="px-2 py-1 md:px-4 md:py-2 bg-gray-900 text-[6px] md:text-xs text-white font-medium rounded-full">
                                 View Projects
                               </span>
-                              <span className="px-1.5 py-0.5 md:px-3 md:py-1 border border-gray-300 text-[4px] md:text-[7px] text-gray-600 font-medium rounded-full">
+                              <span className="px-2 py-1 md:px-4 md:py-2 border border-gray-300 text-[6px] md:text-xs text-gray-600 font-medium rounded-full">
                                 Contact
                               </span>
                             </div>

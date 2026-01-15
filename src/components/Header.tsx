@@ -1,19 +1,12 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
-import logoLight from "@/assets/logo-light.svg";
+import logoLight from "@/assets/logo-light.jpg";
 import { WavyLink } from "./ui/wavy-link";
 import { PremiumLink } from "./ui/premium-button";
 
 const Header = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
 
   // Lock body scroll when menu is open
   useEffect(() => {
@@ -47,19 +40,15 @@ const Header = () => {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          scrolled || mobileMenuOpen 
-            ? "bg-background/95 backdrop-blur-xl border-b border-border/30" 
-            : "bg-transparent"
-        }`}
+        className="fixed top-0 left-0 right-0 z-50 bg-white border-b border-gray-100"
       >
         <div className="container-custom flex items-center justify-between h-16 md:h-20">
-          {/* Logo SVG HD */}
+          {/* Logo - grande */}
           <a href="/" className="flex items-center gap-3 z-50">
             <img 
               src={logoLight} 
               alt="Design by K.A™" 
-              className="h-8 md:h-10 w-auto object-contain"
+              className="h-10 md:h-14 w-auto object-contain"
             />
           </a>
 
@@ -89,7 +78,7 @@ const Header = () => {
                   : { rotate: 0, y: 0, width: 20 }
                 }
                 transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                className="block h-[1.5px] bg-foreground origin-left rounded-full"
+                className="block h-[1.5px] bg-gray-900 origin-left rounded-full"
               />
               <motion.span
                 animate={mobileMenuOpen 
@@ -97,7 +86,7 @@ const Header = () => {
                   : { opacity: 1, scaleX: 1 }
                 }
                 transition={{ duration: 0.15 }}
-                className="block w-3.5 h-[1.5px] bg-foreground rounded-full"
+                className="block w-3.5 h-[1.5px] bg-gray-900 rounded-full"
               />
               <motion.span
                 animate={mobileMenuOpen 
@@ -105,7 +94,7 @@ const Header = () => {
                   : { rotate: 0, y: 0, width: 14 }
                 }
                 transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                className="block h-[1.5px] bg-foreground origin-left rounded-full"
+                className="block h-[1.5px] bg-gray-900 origin-left rounded-full"
               />
             </div>
           </button>
@@ -133,7 +122,7 @@ const Header = () => {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-            className="fixed inset-0 z-40 md:hidden bg-background"
+            className="fixed inset-0 z-40 md:hidden bg-white"
           >
             <motion.nav 
               className="relative h-full flex flex-col items-center justify-center gap-1"
@@ -146,7 +135,7 @@ const Header = () => {
                 <motion.button
                   key={item.id}
                   onClick={() => scrollToSection(item.id)}
-                  className="relative text-[2.5rem] font-medium py-2 text-foreground/90 hover:text-foreground transition-colors duration-300"
+                  className="relative text-[2.5rem] font-medium py-2 text-gray-900 hover:text-gray-600 transition-colors duration-300"
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
@@ -184,7 +173,7 @@ const Header = () => {
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 0.4 }}
                 transition={{ delay: 0.5 }}
-                className="absolute bottom-10 text-[11px] text-muted-foreground tracking-widest uppercase"
+                className="absolute bottom-10 text-[11px] text-gray-500 tracking-widest uppercase"
               >
                 Design by K.A™
               </motion.p>
