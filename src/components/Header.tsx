@@ -8,13 +8,6 @@ const Header = () => {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [initialLoad, setInitialLoad] = useState(true);
-
-  useEffect(() => {
-    // Disable initial load state after animation completes
-    const timer = setTimeout(() => setInitialLoad(false), 1500);
-    return () => clearTimeout(timer);
-  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -53,23 +46,20 @@ const Header = () => {
       <motion.header
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.8, delay: 1.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
+        transition={{ duration: 0.6 }}
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
           scrolled || mobileMenuOpen 
-            ? "bg-foreground/95 backdrop-blur-2xl border-b border-background/10 md:bg-background/95 md:border-border/30" 
-            : "bg-foreground/80 backdrop-blur-xl md:bg-transparent md:backdrop-blur-none"
+            ? "bg-background/95 backdrop-blur-xl border-b border-border/30" 
+            : "bg-transparent"
         }`}
       >
-        <div className="container-custom flex items-center justify-between h-18 md:h-20">
-          {/* Logo SVG HD - Bigger and inverted on mobile for dark header */}
+        <div className="container-custom flex items-center justify-between h-16 md:h-20">
+          {/* Logo SVG HD */}
           <a href="/" className="flex items-center gap-3 z-50">
-            <motion.img 
+            <img 
               src={logoLight} 
               alt="Design by K.A™" 
-              className="h-10 md:h-10 w-auto object-contain invert md:invert-0 drop-shadow-lg md:drop-shadow-none"
-              initial={{ opacity: 0, scale: 0.8 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 0.6, delay: 1.4, ease: [0.25, 0.46, 0.45, 0.94] }}
+              className="h-8 md:h-10 w-auto object-contain"
             />
           </a>
 
@@ -86,7 +76,7 @@ const Header = () => {
             ))}
           </nav>
 
-          {/* Apple-style Menu Button - Ultra minimal - Light color on mobile dark header */}
+          {/* Apple-style Menu Button - Ultra minimal */}
           <button 
             className="md:hidden relative w-10 h-10 flex items-center justify-center z-50"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
@@ -99,7 +89,7 @@ const Header = () => {
                   : { rotate: 0, y: 0, width: 20 }
                 }
                 transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                className="block h-[1.5px] bg-background md:bg-foreground origin-left rounded-full"
+                className="block h-[1.5px] bg-foreground origin-left rounded-full"
               />
               <motion.span
                 animate={mobileMenuOpen 
@@ -107,7 +97,7 @@ const Header = () => {
                   : { opacity: 1, scaleX: 1 }
                 }
                 transition={{ duration: 0.15 }}
-                className="block w-3.5 h-[1.5px] bg-background md:bg-foreground rounded-full"
+                className="block w-3.5 h-[1.5px] bg-foreground rounded-full"
               />
               <motion.span
                 animate={mobileMenuOpen 
@@ -115,7 +105,7 @@ const Header = () => {
                   : { rotate: 0, y: 0, width: 14 }
                 }
                 transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-                className="block h-[1.5px] bg-background md:bg-foreground origin-left rounded-full"
+                className="block h-[1.5px] bg-foreground origin-left rounded-full"
               />
             </div>
           </button>
