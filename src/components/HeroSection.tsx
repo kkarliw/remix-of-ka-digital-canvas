@@ -17,7 +17,7 @@ const HeroSection = () => {
   // Fade out elements as we zoom in
   const textOpacity = useTransform(scrollYProgress, [0, 0.2], [1, 0]);
   const bezelOpacity = useTransform(scrollYProgress, [0.3, 0.5], [1, 0]);
-  const screenContentOpacity = useTransform(scrollYProgress, [0.5, 0.7], [1, 0]);
+  const screenContentOpacity = useTransform(scrollYProgress, [0, 0.5], [1, 1]);
   const heroOpacity = useTransform(scrollYProgress, [0.6, 0.75], [1, 0]);
   
   // Parallax for text
@@ -74,29 +74,23 @@ const HeroSection = () => {
                   transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="relative"
                 >
-                  {/* MacBook Image */}
-                  <motion.img 
-                    src={macbookImage}
-                    alt="MacBook Pro"
-                    style={{ opacity: bezelOpacity }}
-                    className="w-full h-auto relative z-10"
-                  />
-                  
-                  {/* Screen content overlay - positioned on the laptop screen with perspective */}
+                  {/* Screen content overlay - positioned exactly on the laptop screen */}
                   <motion.div 
-                    className="absolute z-0"
+                    className="absolute z-[15]"
                     style={{
-                      top: '2.5%',
-                      left: '12.5%',
-                      width: '51%',
-                      height: '36%',
+                      top: '3%',
+                      left: '13%',
+                      width: '50%',
+                      height: '34%',
                       opacity: screenContentOpacity,
-                      transform: 'perspective(1000px) rotateY(-8deg) rotateX(2deg) skewY(1deg)',
-                      transformOrigin: 'center center',
+                      transform: 'perspective(1000px) rotateY(-10deg) rotateX(2.5deg) skewY(1.8deg)',
+                      transformOrigin: 'left center',
+                      borderRadius: '4px',
+                      overflow: 'hidden',
                     }}
                   >
                     {/* Clean white content inside screen */}
-                    <div className="w-full h-full rounded-sm overflow-hidden bg-white shadow-inner">
+                    <div className="w-full h-full bg-white">
                       <div className="w-full h-full flex flex-col">
                         {/* Mini navbar */}
                         <div className="flex items-center justify-between px-2 md:px-4 py-1 md:py-2 border-b border-gray-100">
@@ -136,6 +130,14 @@ const HeroSection = () => {
                       </div>
                     </div>
                   </motion.div>
+                  
+                  {/* MacBook Image */}
+                  <motion.img 
+                    src={macbookImage}
+                    alt="MacBook Pro"
+                    style={{ opacity: bezelOpacity }}
+                    className="w-full h-auto relative z-10"
+                  />
                 </motion.div>
               </div>
             </motion.div>
