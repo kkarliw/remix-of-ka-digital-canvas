@@ -2,7 +2,6 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import macbookImage from "@/assets/macbook-pro-16.png";
-import sandCloud from "@/assets/sand-cloud.png";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -33,17 +32,6 @@ const HeroSection = () => {
         style={{ opacity: heroOpacity }}
         className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-black"
       >
-        {/* Sand cloud background - inverted to contrast with black */}
-        <div 
-          className="absolute inset-0 opacity-30"
-          style={{
-            backgroundImage: `url(${sandCloud})`,
-            backgroundSize: 'cover',
-            backgroundPosition: 'center bottom',
-            filter: 'invert(1)',
-          }}
-        />
-        
         <div className="relative w-full max-w-7xl mx-auto px-4 md:px-8 lg:px-12 pt-16 md:pt-24">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
             {/* Left Column - Text (fades out first) */}
@@ -86,56 +74,77 @@ const HeroSection = () => {
                   transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="relative"
                 >
-                  {/* Screen content overlay - positioned exactly on the laptop screen */}
+                  {/* Screen content overlay - positioned exactly on the laptop screen with perspective */}
                   <motion.div 
-                    className="absolute z-[5]"
+                    className="absolute z-[15]"
                     style={{
-                      top: '4%',
-                      left: '11%',
-                      width: '78%',
-                      height: '51%',
+                      top: '6.5%',
+                      left: '12%',
+                      width: '76%',
+                      height: '58%',
                       opacity: screenContentOpacity,
-                      borderRadius: '6px',
+                      borderRadius: '4px',
                       overflow: 'hidden',
+                      transform: 'perspective(1200px) rotateX(1deg) rotateY(-1deg)',
+                      transformOrigin: 'center center',
                     }}
                   >
-                    {/* Clean white content inside screen */}
-                    <div className="w-full h-full bg-white">
+                    {/* Website content inside screen */}
+                    <div className="w-full h-full bg-white overflow-hidden">
                       <div className="w-full h-full flex flex-col">
                         {/* Mini navbar */}
-                        <div className="flex items-center justify-between px-3 md:px-6 py-2 md:py-3 border-b border-gray-100">
-                          <span className="text-[8px] md:text-sm font-bold text-gray-900 tracking-tight">BYK.A™</span>
-                          <div className="flex items-center gap-2 md:gap-4">
-                            {['Home', 'Work', 'About', 'Contact'].map((item) => (
-                              <span key={item} className="text-[6px] md:text-xs text-gray-500">{item}</span>
+                        <div className="flex items-center justify-between px-3 md:px-5 py-1.5 md:py-2 border-b border-gray-100 bg-white">
+                          <span className="text-[7px] md:text-xs font-bold text-gray-900 tracking-tight">BYK.A™</span>
+                          <div className="flex items-center gap-1.5 md:gap-3">
+                            {['Inicio', 'Proyectos', 'Servicios', 'Contacto'].map((item) => (
+                              <span key={item} className="text-[5px] md:text-[10px] text-gray-500 hover:text-gray-900 transition-colors">{item}</span>
                             ))}
                           </div>
                         </div>
                         
-                        {/* Main content */}
-                        <div className="flex-1 flex flex-col items-center justify-center px-4 md:px-8">
-                          <motion.div 
-                            initial={{ opacity: 0, y: 10 }}
-                            animate={{ opacity: 1, y: 0 }}
-                            transition={{ delay: 1, duration: 0.6 }}
-                            className="text-center"
-                          >
-                            <span className="text-[6px] md:text-xs font-medium text-gray-400 uppercase tracking-[0.15em]">Creative Studio</span>
-                            <h2 className="text-sm md:text-2xl lg:text-3xl font-bold text-gray-900 mt-1 md:mt-2 tracking-tight leading-tight">
-                              Websites & Branding
-                            </h2>
-                            <p className="text-[7px] md:text-sm text-gray-500 mt-1 md:mt-2">
-                              Crafting premium digital experiences
-                            </p>
-                            <div className="flex items-center justify-center gap-2 md:gap-3 mt-2 md:mt-4">
-                              <span className="px-2 py-1 md:px-4 md:py-2 bg-gray-900 text-[6px] md:text-xs text-white font-medium rounded-full">
-                                View Projects
+                        {/* Hero section inside the mockup */}
+                        <div className="flex-1 bg-gradient-to-br from-gray-50 to-white">
+                          <div className="h-full flex flex-col items-center justify-center px-3 md:px-6">
+                            <motion.div 
+                              initial={{ opacity: 0, y: 10 }}
+                              animate={{ opacity: 1, y: 0 }}
+                              transition={{ delay: 1, duration: 0.6 }}
+                              className="text-center"
+                            >
+                              <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-black text-white text-[5px] md:text-[8px] font-medium rounded-full mb-2 md:mb-3">
+                                Agencia Digital
                               </span>
-                              <span className="px-2 py-1 md:px-4 md:py-2 border border-gray-300 text-[6px] md:text-xs text-gray-600 font-medium rounded-full">
-                                Contact
-                              </span>
+                              <h2 className="text-[10px] md:text-lg lg:text-xl font-bold text-gray-900 tracking-tight leading-tight">
+                                Creamos Experiencias<br />
+                                <span className="text-gray-500">Digitales Únicas</span>
+                              </h2>
+                              <p className="text-[5px] md:text-[9px] text-gray-500 mt-1 md:mt-2 max-w-[80%] mx-auto">
+                                Diseño web, branding y estrategia digital para marcas que buscan destacar.
+                              </p>
+                              <div className="flex items-center justify-center gap-1.5 md:gap-2 mt-2 md:mt-3">
+                                <span className="px-2 py-0.5 md:px-3 md:py-1.5 bg-black text-[5px] md:text-[8px] text-white font-medium rounded-full">
+                                  Ver Proyectos
+                                </span>
+                                <span className="px-2 py-0.5 md:px-3 md:py-1.5 border border-gray-300 text-[5px] md:text-[8px] text-gray-600 font-medium rounded-full">
+                                  Contactar
+                                </span>
+                              </div>
+                            </motion.div>
+                            
+                            {/* Mini stats row */}
+                            <div className="flex items-center justify-center gap-3 md:gap-6 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-gray-100 w-full max-w-[90%]">
+                              {[
+                                { value: '50+', label: 'Proyectos' },
+                                { value: '5', label: 'Años' },
+                                { value: '100%', label: 'Satisfacción' },
+                              ].map((stat) => (
+                                <div key={stat.label} className="text-center">
+                                  <span className="text-[8px] md:text-sm font-bold text-gray-900">{stat.value}</span>
+                                  <span className="block text-[4px] md:text-[7px] text-gray-400">{stat.label}</span>
+                                </div>
+                              ))}
                             </div>
-                          </motion.div>
+                          </div>
                         </div>
                       </div>
                     </div>
