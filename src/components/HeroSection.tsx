@@ -2,6 +2,7 @@ import { motion, useScroll, useTransform } from "framer-motion";
 import { useRef } from "react";
 import { ArrowDown } from "lucide-react";
 import macbookImage from "@/assets/macbook-pro-16.png";
+import projectScreen from "@/assets/project-sportswear-laptop.png";
 
 const HeroSection = () => {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -74,88 +75,32 @@ const HeroSection = () => {
                   transition={{ delay: 0.5, duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="relative"
                 >
-                  {/* Screen content overlay - positioned exactly on the laptop screen with perspective */}
+                  {/* Screen content - real project screenshot positioned inside the laptop screen */}
                   <motion.div 
-                    className="absolute z-[15]"
+                    className="absolute"
                     style={{
-                      top: '6.5%',
-                      left: '12%',
-                      width: '76%',
-                      height: '58%',
+                      top: '6.2%',
+                      left: '11.8%',
+                      width: '76.4%',
+                      height: '50%',
                       opacity: screenContentOpacity,
-                      borderRadius: '4px',
+                      borderRadius: '2px',
                       overflow: 'hidden',
-                      transform: 'perspective(1200px) rotateX(1deg) rotateY(-1deg)',
-                      transformOrigin: 'center center',
                     }}
                   >
-                    {/* Website content inside screen */}
-                    <div className="w-full h-full bg-white overflow-hidden">
-                      <div className="w-full h-full flex flex-col">
-                        {/* Mini navbar */}
-                        <div className="flex items-center justify-between px-3 md:px-5 py-1.5 md:py-2 border-b border-gray-100 bg-white">
-                          <span className="text-[7px] md:text-xs font-bold text-gray-900 tracking-tight">BYK.A™</span>
-                          <div className="flex items-center gap-1.5 md:gap-3">
-                            {['Inicio', 'Proyectos', 'Servicios', 'Contacto'].map((item) => (
-                              <span key={item} className="text-[5px] md:text-[10px] text-gray-500 hover:text-gray-900 transition-colors">{item}</span>
-                            ))}
-                          </div>
-                        </div>
-                        
-                        {/* Hero section inside the mockup */}
-                        <div className="flex-1 bg-gradient-to-br from-gray-50 to-white">
-                          <div className="h-full flex flex-col items-center justify-center px-3 md:px-6">
-                            <motion.div 
-                              initial={{ opacity: 0, y: 10 }}
-                              animate={{ opacity: 1, y: 0 }}
-                              transition={{ delay: 1, duration: 0.6 }}
-                              className="text-center"
-                            >
-                              <span className="inline-block px-2 py-0.5 md:px-3 md:py-1 bg-black text-white text-[5px] md:text-[8px] font-medium rounded-full mb-2 md:mb-3">
-                                Agencia Digital
-                              </span>
-                              <h2 className="text-[10px] md:text-lg lg:text-xl font-bold text-gray-900 tracking-tight leading-tight">
-                                Creamos Experiencias<br />
-                                <span className="text-gray-500">Digitales Únicas</span>
-                              </h2>
-                              <p className="text-[5px] md:text-[9px] text-gray-500 mt-1 md:mt-2 max-w-[80%] mx-auto">
-                                Diseño web, branding y estrategia digital para marcas que buscan destacar.
-                              </p>
-                              <div className="flex items-center justify-center gap-1.5 md:gap-2 mt-2 md:mt-3">
-                                <span className="px-2 py-0.5 md:px-3 md:py-1.5 bg-black text-[5px] md:text-[8px] text-white font-medium rounded-full">
-                                  Ver Proyectos
-                                </span>
-                                <span className="px-2 py-0.5 md:px-3 md:py-1.5 border border-gray-300 text-[5px] md:text-[8px] text-gray-600 font-medium rounded-full">
-                                  Contactar
-                                </span>
-                              </div>
-                            </motion.div>
-                            
-                            {/* Mini stats row */}
-                            <div className="flex items-center justify-center gap-3 md:gap-6 mt-3 md:mt-4 pt-2 md:pt-3 border-t border-gray-100 w-full max-w-[90%]">
-                              {[
-                                { value: '50+', label: 'Proyectos' },
-                                { value: '5', label: 'Años' },
-                                { value: '100%', label: 'Satisfacción' },
-                              ].map((stat) => (
-                                <div key={stat.label} className="text-center">
-                                  <span className="text-[8px] md:text-sm font-bold text-gray-900">{stat.value}</span>
-                                  <span className="block text-[4px] md:text-[7px] text-gray-400">{stat.label}</span>
-                                </div>
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    <img 
+                      src={projectScreen}
+                      alt="Project Screenshot"
+                      className="w-full h-full object-cover object-top"
+                    />
                   </motion.div>
                   
-                  {/* MacBook Image */}
+                  {/* MacBook Image - on top to show the bezel */}
                   <motion.img 
                     src={macbookImage}
                     alt="MacBook Pro"
                     style={{ opacity: bezelOpacity }}
-                    className="w-full h-auto relative z-10"
+                    className="w-full h-auto relative z-10 pointer-events-none"
                   />
                 </motion.div>
               </div>
