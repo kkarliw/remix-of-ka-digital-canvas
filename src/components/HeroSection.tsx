@@ -48,11 +48,11 @@ const HeroSection = () => {
           style={{ opacity: heroOpacity }}
           className="absolute inset-0 flex items-center justify-center overflow-hidden"
         >
-          <div className="relative w-full max-w-7xl mx-auto px-4 sm:px-6 md:px-8 lg:px-12 pt-16 sm:pt-20 md:pt-24">
+          <div className="relative w-full max-w-7xl mx-auto px-5 sm:px-8 md:px-10 lg:px-12 pt-20 sm:pt-24 md:pt-28 lg:pt-24">
             {/* Desktop: side by side | Mobile/Tablet: text first, mockup second */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8 lg:gap-16 items-center">
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-16 items-center">
               
-              {/* Text Content - First on mobile, second on desktop */}
+              {/* Text Content - First on mobile/tablet, second on desktop */}
               <motion.div 
                 style={{ y: textY, opacity: textOpacity }}
                 className="order-1 lg:order-1 text-center lg:text-left"
@@ -61,7 +61,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.2, duration: 0.6 }}
-                  className="inline-block text-[9px] sm:text-[10px] md:text-xs text-white/50 uppercase tracking-[0.2em] sm:tracking-[0.3em] mb-3 sm:mb-4 md:mb-6"
+                  className="inline-block text-[10px] sm:text-xs md:text-xs text-white/50 uppercase tracking-[0.2em] md:tracking-[0.3em] mb-4 md:mb-6"
                 >
                   Agencia Digital Boutique
                 </motion.span>
@@ -70,7 +70,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] xl:text-[4.5rem] font-bold leading-[1.1] sm:leading-[1.05] tracking-[-0.02em] sm:tracking-[-0.03em] text-white"
+                  className="text-2xl sm:text-3xl md:text-4xl lg:text-[3.5rem] xl:text-[4.5rem] font-bold leading-[1.1] tracking-[-0.02em] lg:tracking-[-0.03em] text-white"
                 >
                   Websites &<br />
                   <span className="italic font-light text-white/80">Digital</span> Experiences
@@ -80,7 +80,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="text-white/60 mt-4 sm:mt-5 md:mt-8 max-w-md sm:max-w-lg mx-auto lg:mx-0 text-[0.85rem] sm:text-[0.9rem] md:text-base lg:text-lg leading-relaxed"
+                  className="text-white/60 mt-5 md:mt-6 lg:mt-8 max-w-sm sm:max-w-md md:max-w-lg mx-auto lg:mx-0 text-sm sm:text-base md:text-base lg:text-lg leading-relaxed"
                 >
                   Diseño y desarrollo de experiencias web modernas, funcionales y optimizadas para generar contacto y conversión en negocios y marcas.
                 </motion.p>
@@ -90,7 +90,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.7, duration: 0.6 }}
-                  className="mt-6 sm:mt-8 md:mt-10"
+                  className="mt-6 sm:mt-8 md:mt-8 lg:mt-10"
                 >
                   <RippleWaveLink
                     href="https://wa.me/573107086902?text=Hola,%20quiero%20cotizar%20un%20sitio%20web"
@@ -98,20 +98,20 @@ const HeroSection = () => {
                     rel="noopener noreferrer"
                     variant="primary"
                     size="default"
-                    className="text-[10px] sm:text-xs md:text-sm px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4"
+                    className="text-xs sm:text-sm md:text-sm px-6 sm:px-7 md:px-8 py-3 sm:py-3.5 md:py-4"
                   >
                     Cotizar Proyecto
                   </RippleWaveLink>
                 </motion.div>
               </motion.div>
 
-              {/* MacBook Mockup - Second on mobile, first on desktop */}
+              {/* MacBook Mockup - Second on mobile/tablet, shows after text */}
               <motion.div 
                 style={{ 
                   scale: laptopScale,
                   y: laptopY,
                 }}
-                className="order-2 lg:order-2 origin-center mt-6 sm:mt-8 lg:mt-0"
+                className="order-2 lg:order-2 origin-center mt-6 md:mt-8 lg:mt-0"
               >
                 <motion.div 
                   initial={{ opacity: 0, y: 60 }}
@@ -121,9 +121,9 @@ const HeroSection = () => {
                 >
                   <motion.img 
                     src={macbookImage}
-                    alt="MacBook Pro"
+                    alt="MacBook Pro - Portafolio Design by KA"
                     style={{ opacity: bezelOpacity }}
-                    className="w-full h-auto relative z-10 pointer-events-none max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto"
+                    className="w-full h-auto relative z-10 pointer-events-none max-w-[280px] sm:max-w-sm md:max-w-md lg:max-w-xl xl:max-w-2xl mx-auto"
                   />
                 </motion.div>
               </motion.div>
