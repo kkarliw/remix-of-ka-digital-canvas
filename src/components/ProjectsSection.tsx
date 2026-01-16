@@ -65,7 +65,7 @@ const projects: Project[] = [
     watermark: "VENEZIA TOWER",
     description: "Proyecto inmobiliario en Cartagena enfocado en la presentación clara de apartamentos, precios y tipologías para facilitar la decisión de compra.",
     image: projectVeneziaIMac,
-    link: "https://veneziatowerhouse.com",
+    link: "https://veneziatowerhouse.netlify.app",
     layout: "single-mockup",
     hotspots: [
       { id: "1", label: "Info", description: "Detalles del proyecto claros", x: "20%", y: "30%" },
@@ -172,25 +172,23 @@ const ProjectDivider = ({ index }: { index: number }) => {
   );
 };
 
-// Dual Mockups Project Card - PREMIUM ANIMATIONS & TABLET OPTIMIZED
+// Dual Mockups Project Card - LARGER MOCKUPS & IMPROVED LAYOUT
 const DualMockupProjectCard = ({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  // Enhanced scroll-driven animations
-  const mobileY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -40, -80]);
-  const mobileRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -3, -6]);
-  const laptopX = useTransform(scrollYProgress, [0, 0.5, 1], [0, 30, 60]);
-  const laptopScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.03, 1.08]);
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -80]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.85]);
-  const bgGlow = useTransform(scrollYProgress, [0, 0.5], [0, 0.15]);
+  // Scroll-driven animations
+  const mobileY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -30, -60]);
+  const mobileRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -2, -4]);
+  const laptopX = useTransform(scrollYProgress, [0, 0.5, 1], [0, 20, 40]);
+  const laptopScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.02, 1.05]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -50]);
+  const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
 
   return (
     <div 
@@ -198,77 +196,52 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
       className="relative min-h-[200vh]"
     >
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-background">
-        {/* Animated background glow on scroll */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent pointer-events-none"
-          style={{ opacity: bgGlow }}
-        />
-
-        {/* Watermark with enhanced parallax */}
+        {/* Watermark */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
           style={{ x: watermarkX }}
         >
-          <span className="text-[10vw] sm:text-[12vw] md:text-[14vw] lg:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
+          <span className="text-[12vw] sm:text-[15vw] md:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
             {project.watermark}
           </span>
         </motion.div>
 
-        <div className="container-custom relative z-10 flex flex-col h-full justify-center py-16 md:py-20 px-4 sm:px-6 md:px-8">
-          {/* Dual Mockups - Optimized for tablet */}
-          <motion.div 
-            className="relative flex justify-center items-end gap-3 sm:gap-5 md:gap-8 lg:gap-12 order-1 mb-6 md:mb-10"
-            onMouseEnter={() => setIsHovered(true)}
-            onMouseLeave={() => setIsHovered(false)}
-          >
-            {/* Mobile mockup - Premium hover effect */}
+        <div className="container-custom relative z-10 flex flex-col h-full justify-center py-20">
+          {/* Dual Mockups - FIRST on mobile */}
+          <div className="relative flex justify-center items-end gap-2 sm:gap-4 md:gap-8 lg:gap-12 order-1 md:order-1 mb-6 md:mb-10">
+            {/* Mobile mockup - LARGER */}
             <motion.div
               className="relative z-10"
               style={{ y: mobileY, rotate: mobileRotate }}
-              initial={{ opacity: 0, x: -80, scale: 0.9 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              initial={{ opacity: 0, x: -60 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
-              whileHover={{ scale: 1.05, y: -10 }}
+              transition={{ duration: 0.8, delay: 0.3 }}
             >
-              <motion.img
+              <img
                 src={project.image}
                 alt={`${project.title} mobile`}
-                className="w-[80px] sm:w-[110px] md:w-[160px] lg:w-[280px] xl:w-[360px] h-auto rounded-xl sm:rounded-2xl md:rounded-3xl"
-                style={{
-                  boxShadow: isHovered 
-                    ? '0 40px 80px -20px rgba(0,0,0,0.5), 0 20px 40px -10px rgba(0,0,0,0.3)'
-                    : '0 25px 50px -12px rgba(0,0,0,0.4)'
-                }}
+                className="w-[100px] sm:w-[150px] md:w-[240px] lg:w-[320px] xl:w-[400px] h-auto drop-shadow-2xl rounded-2xl md:rounded-3xl"
               />
-              {/* Subtle reflection */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 w-3/4 h-4 bg-gradient-to-t from-foreground/5 to-transparent blur-xl" />
             </motion.div>
 
-            {/* Laptop mockup - Premium hover effect */}
+            {/* Laptop mockup - LARGER */}
             <motion.div
               className="relative"
               style={{ x: laptopX, scale: laptopScale }}
-              initial={{ opacity: 0, x: 80, scale: 0.9 }}
-              whileInView={{ opacity: 1, x: 0, scale: 1 }}
+              initial={{ opacity: 0, x: 60 }}
+              whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              whileHover={{ scale: 1.03, y: -8 }}
+              transition={{ duration: 0.8, delay: 0.4 }}
             >
-              <motion.img
+              <img
                 src={project.secondaryImage}
                 alt={`${project.title} desktop`}
-                className="w-[160px] sm:w-[220px] md:w-[320px] lg:w-[480px] xl:w-[600px] h-auto"
-                style={{
-                  filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
-                  boxShadow: isHovered 
-                    ? '0 50px 100px -30px rgba(0,0,0,0.5)'
-                    : '0 30px 60px -20px rgba(0,0,0,0.4)'
-                }}
+                className="w-[180px] sm:w-[280px] md:w-[420px] lg:w-[550px] xl:w-[680px] h-auto drop-shadow-2xl"
               />
               
               {/* Hotspots - only on larger screens */}
-              <div className="hidden lg:block">
+              <div className="hidden md:block">
                 {project.hotspots.map((hotspot, idx) => (
                   <HotspotDot
                     key={hotspot.id}
@@ -281,66 +254,54 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
                 ))}
               </div>
             </motion.div>
-          </motion.div>
+          </div>
 
-          {/* Mobile/Tablet: Feature badges below mockups */}
+          {/* Mobile: Feature badges below mockups */}
           <motion.div
-            className="flex lg:hidden flex-wrap justify-center gap-2 mt-4 px-2"
+            className="flex md:hidden flex-wrap justify-center gap-2 mt-4 px-4"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, delay: 0.6 }}
           >
-            {project.hotspots.slice(0, 4).map((hotspot) => (
-              <motion.span 
+            {project.hotspots.slice(0, 4).map((hotspot, idx) => (
+              <span 
                 key={hotspot.id}
-                className="text-[9px] sm:text-[10px] md:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full text-muted-foreground border border-foreground/10"
-                whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--foreground) / 0.1)' }}
+                className="text-[10px] px-3 py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
               >
                 {hotspot.label}
-              </motion.span>
+              </span>
             ))}
           </motion.div>
 
-          {/* Content BELOW mockups - centered & optimized */}
+          {/* Content BELOW mockups - centered */}
           <motion.div
-            className="text-center max-w-lg lg:max-w-xl mx-auto px-4 order-2 mt-4 md:mt-6"
+            className="text-center max-w-xl mx-auto px-4 order-2"
             style={{ opacity: contentOpacity }}
-            initial={{ opacity: 0, y: 40 }}
+            initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.7, delay: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+            transition={{ duration: 0.6, delay: 0.5 }}
           >
-            <motion.span 
-              className="inline-flex items-center gap-2 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground mb-2 sm:mb-3 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full border border-foreground/10"
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: 0.6 }}
-            >
-              <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-primary rounded-full animate-pulse" />
+            <span className="inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3 py-1.5 bg-foreground/5 rounded-full">
+              <span className="w-1.5 h-1.5 bg-foreground/50 rounded-full" />
               Proyecto destacado
-            </motion.span>
-            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight mb-2 sm:mb-3 md:mb-4">{project.title}</h3>
-            <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground mb-4 sm:mb-5 md:mb-8 max-w-sm md:max-w-md mx-auto leading-relaxed">
+            </span>
+            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 md:mb-4">{project.title}</h3>
+            <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-5 md:mb-8 max-w-md mx-auto leading-relaxed">
               {project.description}
             </p>
 
-            <motion.div
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+            <PremiumLink
+              href={project.link}
+              target="_blank"
+              rel="noopener noreferrer"
+              variant="primary"
+              className="rounded-xl"
             >
-              <PremiumLink
-                href={project.link}
-                target="_blank"
-                rel="noopener noreferrer"
-                variant="primary"
-                className="rounded-xl text-xs sm:text-sm md:text-base px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 group"
-              >
-                Ver proyecto
-                <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-              </PremiumLink>
-            </motion.div>
+              Ver proyecto
+              <ArrowRight className="w-4 h-4" />
+            </PremiumLink>
           </motion.div>
         </div>
       </div>
@@ -348,22 +309,19 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
   );
 };
 
-// Single mockup project - PREMIUM ANIMATIONS & TABLET OPTIMIZED
+// Single mockup project - LARGER MOCKUPS
 const SingleMockupProjectCard = ({ project, index }: { project: Project; index: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
-  const [isHovered, setIsHovered] = useState(false);
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end start"],
   });
 
-  const mockupY = useTransform(scrollYProgress, [0, 1], [0, -60]);
-  const mockupScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.04, 1.08]);
-  const mockupRotate = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? 2 : -2]);
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -60 : 60]);
-  const bgGlow = useTransform(scrollYProgress, [0, 0.5], [0, 0.12]);
+  const mockupY = useTransform(scrollYProgress, [0, 1], [0, -40]);
+  const mockupScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.02, 1.04]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -40 : 40]);
 
   return (
     <div 
@@ -371,63 +329,37 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
       className="relative min-h-[180vh]"
     >
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-background">
-        {/* Animated background glow */}
-        <motion.div 
-          className="absolute inset-0 bg-gradient-radial from-primary/5 via-transparent to-transparent pointer-events-none"
-          style={{ opacity: bgGlow }}
-        />
-
-        {/* Watermark with enhanced parallax */}
+        {/* Watermark */}
         <motion.div
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
           style={{ x: watermarkX }}
         >
-          <span className="text-[10vw] sm:text-[12vw] md:text-[14vw] lg:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
+          <span className="text-[12vw] sm:text-[15vw] md:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
             {project.watermark}
           </span>
         </motion.div>
 
-        <div className="container-custom relative z-10 pt-16 md:pt-20 px-4 sm:px-6 md:px-8">
-          <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-6 md:gap-8 lg:gap-16`}>
+        <div className="container-custom relative z-10 pt-16 md:pt-20">
+          <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-6 md:gap-10 lg:gap-16`}>
             
-            {/* Mockup - Premium hover & scroll effects */}
+            {/* Mockup - LARGER with rounded corners */}
             <motion.div
               className="relative w-full lg:w-[60%] flex justify-center"
-              style={{ y: mockupY, scale: mockupScale, rotate: mockupRotate }}
-              initial={{ opacity: 0, y: 80, scale: 0.9 }}
-              whileInView={{ opacity: 1, y: 0, scale: 1 }}
+              style={{ y: mockupY, scale: mockupScale }}
+              initial={{ opacity: 0, y: 60 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-              onMouseEnter={() => setIsHovered(true)}
-              onMouseLeave={() => setIsHovered(false)}
+              transition={{ duration: 0.7, delay: 0.2 }}
             >
-              <motion.div 
-                className="relative"
-                whileHover={{ scale: 1.03, y: -10 }}
-                transition={{ duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] }}
-              >
-                <motion.img
+              <div className="relative">
+                <img
                   src={project.image}
                   alt={project.title}
-                  className="w-[240px] sm:w-[300px] md:w-[400px] lg:w-[520px] xl:w-[640px] h-auto"
-                  style={{
-                    filter: isHovered ? 'brightness(1.05)' : 'brightness(1)',
-                    boxShadow: isHovered 
-                      ? '0 60px 120px -40px rgba(0,0,0,0.5), 0 30px 60px -20px rgba(0,0,0,0.3)'
-                      : '0 40px 80px -30px rgba(0,0,0,0.4)'
-                  }}
-                />
-                
-                {/* Subtle glow effect on hover */}
-                <motion.div 
-                  className="absolute -inset-4 bg-gradient-radial from-primary/10 via-transparent to-transparent pointer-events-none rounded-3xl"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: isHovered ? 1 : 0 }}
-                  transition={{ duration: 0.3 }}
+                  className="w-[280px] sm:w-[380px] md:w-[500px] lg:w-[600px] xl:w-[720px] h-auto drop-shadow-2xl"
                 />
                 
                 {/* Hotspots - only on larger screens */}
-                <div className="hidden lg:block">
+                <div className="hidden md:block">
                   {project.hotspots.map((hotspot, idx) => (
                     <HotspotDot
                       key={hotspot.id}
@@ -440,65 +372,53 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
                   ))}
                 </div>
                 
-                {/* Mobile/Tablet: Feature badges */}
+                {/* Mobile: Feature badges */}
                 <motion.div
-                  className="flex lg:hidden flex-wrap justify-center gap-2 mt-4"
+                  className="flex md:hidden flex-wrap justify-center gap-2 mt-4"
                   initial={{ opacity: 0, y: 15 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.4, delay: 0.5 }}
                 >
                   {project.hotspots.slice(0, 4).map((hotspot) => (
-                    <motion.span 
+                    <span 
                       key={hotspot.id}
-                      className="text-[9px] sm:text-[10px] md:text-xs px-2.5 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full text-muted-foreground border border-foreground/10"
-                      whileHover={{ scale: 1.05, backgroundColor: 'hsl(var(--foreground) / 0.1)' }}
+                      className="text-[10px] px-3 py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
                     >
                       {hotspot.label}
-                    </motion.span>
+                    </span>
                   ))}
                 </motion.div>
-              </motion.div>
+              </div>
             </motion.div>
 
-            {/* Content - Premium animations */}
+            {/* Content */}
             <motion.div
-              className={`w-full lg:w-[40%] text-center ${index % 2 === 0 ? 'lg:text-left' : 'lg:text-right'} px-2 sm:px-4`}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -60 : 60 }}
+              className={`w-full lg:w-[40%] text-center ${index % 2 === 0 ? 'lg:text-left' : 'lg:text-right'} px-4`}
+              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3, ease: [0.25, 0.46, 0.45, 0.94] }}
+              transition={{ duration: 0.7, delay: 0.3 }}
             >
-              <motion.span 
-                className={`inline-flex items-center gap-2 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground mb-2 sm:mb-3 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full border border-foreground/10 ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: 0.4 }}
-              >
-                <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-primary rounded-full animate-pulse" />
+              <span className={`inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3 py-1.5 bg-foreground/5 rounded-full ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}>
+                <span className="w-1.5 h-1.5 bg-foreground/50 rounded-full" />
                 Proyecto destacado
-              </motion.span>
-              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold tracking-tight mb-2 sm:mb-3 md:mb-4">{project.title}</h3>
-              <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground mb-4 sm:mb-5 md:mb-8 max-w-xs sm:max-w-sm mx-auto lg:mx-0 leading-relaxed">
+              </span>
+              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 md:mb-4">{project.title}</h3>
+              <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-5 md:mb-8 max-w-sm mx-auto lg:mx-0 leading-relaxed">
                 {project.description}
               </p>
 
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
+              <PremiumLink
+                href={project.link}
+                target="_blank"
+                rel="noopener noreferrer"
+                variant="primary"
+                className={`rounded-xl ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
               >
-                <PremiumLink
-                  href={project.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  variant="primary"
-                  className={`rounded-xl text-xs sm:text-sm md:text-base px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5 group ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
-                >
-                  Ver proyecto
-                  <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
-                </PremiumLink>
-              </motion.div>
+                Ver proyecto
+                <ArrowRight className="w-4 h-4" />
+              </PremiumLink>
             </motion.div>
           </div>
         </div>
@@ -516,22 +436,17 @@ const ProjectsSection = () => {
       {/* Section Header */}
       <motion.div 
         ref={headerRef}
-        className="container-custom py-12 sm:py-16 md:py-20 lg:py-24 text-center px-4 sm:px-6 md:px-8"
+        className="container-custom py-16 md:py-24 text-center"
         initial={{ opacity: 0, y: 40 }}
         animate={headerInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{ duration: 0.7 }}
       >
-        <motion.span 
-          className="inline-flex items-center gap-2 text-[9px] sm:text-[10px] md:text-xs uppercase tracking-[0.15em] md:tracking-[0.2em] text-muted-foreground mb-2 sm:mb-3 px-2.5 sm:px-3 py-1 sm:py-1.5 bg-foreground/5 rounded-full border border-foreground/10"
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={headerInView ? { opacity: 1, scale: 1 } : { opacity: 0, scale: 0.9 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          <span className="w-1 h-1 sm:w-1.5 sm:h-1.5 bg-primary rounded-full animate-pulse" />
+        <span className="inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3 py-1.5 bg-foreground/5 rounded-full">
+          <span className="w-1.5 h-1.5 bg-foreground/50 rounded-full" />
           Portafolio
-        </motion.span>
-        <h2 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Proyectos</h2>
-        <p className="text-xs sm:text-sm md:text-base lg:text-lg text-muted-foreground mt-3 sm:mt-4 max-w-sm sm:max-w-md md:max-w-lg lg:max-w-xl mx-auto leading-relaxed">
+        </span>
+        <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight">Proyectos</h2>
+        <p className="text-sm md:text-base lg:text-lg text-muted-foreground mt-4 max-w-xl mx-auto leading-relaxed">
           Sitios web diseñados como productos digitales premium, enfocados en conversión y experiencia de usuario.
         </p>
       </motion.div>
