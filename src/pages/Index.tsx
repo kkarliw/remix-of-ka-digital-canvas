@@ -8,11 +8,13 @@ import OfferSection from "@/components/OfferSection";
 import FAQSection from "@/components/FAQSection";
 import CTAFinalSection from "@/components/CTAFinalSection";
 import Footer from "@/components/Footer";
+import FloatingButton from "@/components/FloatingButton";
 
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
       <main>
         <HeroSection />
         <AboutSection />
@@ -23,7 +25,9 @@ const Index = () => {
         <FAQSection />
         <CTAFinalSection />
       </main>
+
       <Footer />
+      <FloatingButton />
     </div>
   );
 };

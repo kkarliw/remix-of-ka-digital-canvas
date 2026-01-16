@@ -35,7 +35,7 @@ const projects: Project[] = [
     description: "Sitio web de e-commerce para marca de ropa deportiva femenina. Diseño moderno, catálogo de productos y compras vía WhatsApp.",
     image: projectSportswearMobile,
     secondaryImage: projectSportswearLaptop,
-    link: "https://sportswearfit.com",
+    link: "https://arsportswearfit.com",
     layout: "dual-mockup",
     hotspots: [
       { id: "1", label: "Catálogo", description: "Productos organizados por categoría", x: "75%", y: "35%" },
@@ -46,8 +46,10 @@ const projects: Project[] = [
   },
   {
     id: "giutours",
-    title: "GIU TOURS",
-    watermark: "GIU TOURS",
+    title: "GIUTOURS",
+    watermark: "GIUTOURS",
+    title: "GIUTOURS",
+    watermark: "GIUTOURS",
     description: "Transporte y experiencias turísticas en Cartagena, diseñadas para viajeros que buscan comodidad, seguridad y atención personalizada.",
     image: projectGiutoursIPad,
     link: "https://giutourscom.netlify.app",
@@ -65,7 +67,7 @@ const projects: Project[] = [
     watermark: "VENEZIA TOWER",
     description: "Proyecto inmobiliario en Cartagena enfocado en la presentación clara de apartamentos, precios y tipologías para facilitar la decisión de compra.",
     image: projectVeneziaIMac,
-    link: "https://veneziatowerhouse.netlify.app",
+    link: "https://veneziatowerhouse.com",
     layout: "single-mockup",
     hotspots: [
       { id: "1", label: "Info", description: "Detalles del proyecto claros", x: "20%", y: "30%" },

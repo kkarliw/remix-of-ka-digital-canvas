@@ -71,6 +71,7 @@ const HeroSection = () => {
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
                   className="text-[1.75rem] sm:text-[2rem] md:text-[2.5rem] lg:text-[3.5rem] xl:text-[4.5rem] font-bold leading-[1.1] sm:leading-[1.05] tracking-[-0.02em] sm:tracking-[-0.03em] text-white"
+                  className="text-[1.5rem] sm:text-[1.75rem] md:text-[2rem] lg:text-[3rem] xl:text-[3.5rem] font-bold leading-[1.2] tracking-[-0.01em] text-white"
                 >
                   Websites &<br />
                   <span className="italic font-light text-white/80">Digital</span> Experiences
@@ -124,6 +125,7 @@ const HeroSection = () => {
                     alt="MacBook Pro"
                     style={{ opacity: bezelOpacity }}
                     className="w-full h-auto relative z-10 pointer-events-none max-w-xs sm:max-w-md md:max-w-lg lg:max-w-2xl mx-auto"
+                    className="w-full h-auto relative z-10 pointer-events-none max-w-[200px] sm:max-w-[280px] md:max-w-sm lg:max-w-lg xl:max-w-2xl mx-auto"
                   />
                 </motion.div>
               </motion.div>
