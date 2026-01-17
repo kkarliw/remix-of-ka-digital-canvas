@@ -297,10 +297,11 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
               target="_blank"
               rel="noopener noreferrer"
               variant="primary"
-              className="rounded-xl"
+              size="sm"
+              className="rounded-xl whitespace-nowrap"
             >
               Ver proyecto
-              <ArrowRight className="w-4 h-4" />
+              <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
             </PremiumLink>
           </motion.div>
         </div>
@@ -414,10 +415,11 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
                 target="_blank"
                 rel="noopener noreferrer"
                 variant="primary"
-                className={`rounded-xl ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
+                size="sm"
+                className={`rounded-xl whitespace-nowrap ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
               >
                 Ver proyecto
-                <ArrowRight className="w-4 h-4" />
+                <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
               </PremiumLink>
             </motion.div>
           </div>

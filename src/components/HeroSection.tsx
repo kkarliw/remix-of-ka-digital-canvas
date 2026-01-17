@@ -70,7 +70,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 40 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
-                  className="text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-[1.15] tracking-[-0.01em] text-white"
+                  className="text-lg sm:text-xl md:text-2xl lg:text-4xl xl:text-5xl font-bold leading-[1.15] tracking-[-0.01em] text-white"
                 >
                   Websites &<br />
                   <span className="italic font-light text-white/80">Digital</span> Experiences
@@ -80,7 +80,7 @@ const HeroSection = () => {
                   initial={{ opacity: 0, y: 30 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.5, duration: 0.7 }}
-                  className="text-white/60 mt-4 sm:mt-5 md:mt-8 max-w-md sm:max-w-lg mx-auto lg:mx-0 text-[0.85rem] sm:text-[0.9rem] md:text-base lg:text-lg leading-relaxed"
+                  className="text-white/60 mt-3 sm:mt-4 md:mt-6 max-w-sm sm:max-w-md mx-auto lg:mx-0 text-xs sm:text-sm md:text-base lg:text-lg leading-relaxed"
                 >
                   Diseño y desarrollo de experiencias web modernas, funcionales y optimizadas para generar contacto y conversión en negocios y marcas.
                 </motion.p>
@@ -98,7 +98,7 @@ const HeroSection = () => {
                     rel="noopener noreferrer"
                     variant="primary"
                     size="default"
-                    className="text-[10px] sm:text-xs md:text-sm px-5 sm:px-6 md:px-8 py-3 sm:py-3.5 md:py-4"
+                    className="text-[9px] sm:text-[10px] md:text-xs px-4 sm:px-5 md:px-6 py-2.5 sm:py-3 md:py-3.5"
                   >
                     Cotizar Proyecto
                   </RippleWaveLink>
