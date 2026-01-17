@@ -48,11 +48,9 @@ const projects: Project[] = [
     id: "giutours",
     title: "GIUTOURS",
     watermark: "GIUTOURS",
-    title: "GIUTOURS",
-    watermark: "GIUTOURS",
     description: "Transporte y experiencias turísticas en Cartagena, diseñadas para viajeros que buscan comodidad, seguridad y atención personalizada.",
     image: projectGiutoursIPad,
-    link: "https://giutourscom.netlify.app",
+    link: "https://giutours.com",
     layout: "single-mockup",
     hotspots: [
       { id: "1", label: "Responsive", description: "Optimizado para móvil y desktop", x: "15%", y: "25%" },

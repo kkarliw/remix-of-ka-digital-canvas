@@ -253,13 +253,9 @@ const Header = () => {
                   Contacto
                 </p>
                 <a 
-                  href="mailto:hello@designbyka.com"
-                  className="text-sm sm:text-base text-white/50 hover:text-white/80 transition-colors duration-300"
-                >
-                  hello@designbyka.com
                   href="mailto:designbyka.studio@gmail.com"
                   className="text-sm sm:text-base text-white/50 hover:text-white/80 transition-colors duration-300"
-  
+                >
                   designbyka.studio@gmail.com
                 </a>
               </motion.div>

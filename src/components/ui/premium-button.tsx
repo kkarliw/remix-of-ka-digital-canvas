@@ -58,9 +58,9 @@ const PremiumLink = forwardRef<HTMLAnchorElement, PremiumLinkProps>(
     };
 
     const sizes = {
-      sm: "px-5 py-2.5 text-[10px]",
-      default: "px-7 py-3.5 text-xs",
-      lg: "px-9 py-4 text-sm",
+      sm: "px-4 py-2 text-[9px] md:px-5 md:py-2.5 md:text-[10px]",
+      default: "px-5 py-2.5 text-[10px] md:px-7 md:py-3.5 md:text-xs",
+      lg: "px-7 py-3 text-xs md:px-9 md:py-4 md:text-sm",
     };
 
     return (
