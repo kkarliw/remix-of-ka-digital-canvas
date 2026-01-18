@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
-import { useRef, useState } from "react";
+import { useRef, useState, memo } from "react";
 import { ExternalLink, ArrowRight } from "lucide-react";
 import { PremiumLink } from "./ui/premium-button";
 import projectVeneziaIMac from "@/assets/project-venezia-imac.png";
@@ -172,8 +172,8 @@ const ProjectDivider = ({ index }: { index: number }) => {
   );
 };
 
-// Dual Mockups Project Card - LARGER MOCKUPS & IMPROVED LAYOUT
-const DualMockupProjectCard = ({ project }: { project: Project }) => {
+// Dual Mockups Project Card - OPTIMIZED for tablet
+const DualMockupProjectCard = memo(({ project }: { project: Project }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
@@ -182,18 +182,15 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
     offset: ["start start", "end start"],
   });
 
-  // Scroll-driven animations
-  const mobileY = useTransform(scrollYProgress, [0, 0.5, 1], [0, -30, -60]);
-  const mobileRotate = useTransform(scrollYProgress, [0, 0.5, 1], [0, -2, -4]);
-  const laptopX = useTransform(scrollYProgress, [0, 0.5, 1], [0, 20, 40]);
-  const laptopScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.02, 1.05]);
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -50]);
-  const contentOpacity = useTransform(scrollYProgress, [0, 0.3], [1, 0.8]);
+  // Simplified animations
+  const mobileY = useTransform(scrollYProgress, [0, 0.5], [0, -30]);
+  const laptopX = useTransform(scrollYProgress, [0, 0.5], [0, 15]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, -30]);
 
   return (
     <div 
       ref={containerRef}
-      className="relative min-h-[200vh]"
+      className="relative min-h-[180vh] md:min-h-[200vh]"
     >
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-background">
         {/* Watermark */}
@@ -201,47 +198,49 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
           style={{ x: watermarkX }}
         >
-          <span className="text-[12vw] sm:text-[15vw] md:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
+          <span className="text-[10vw] sm:text-[12vw] md:text-[14vw] lg:text-[16vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.02]">
             {project.watermark}
           </span>
         </motion.div>
 
-        <div className="container-custom relative z-10 flex flex-col h-full justify-center py-20">
-          {/* Dual Mockups - FIRST on mobile */}
-          <div className="relative flex justify-center items-end gap-2 sm:gap-4 md:gap-8 lg:gap-12 order-1 md:order-1 mb-6 md:mb-10">
-            {/* Mobile mockup - LARGER */}
+        <div className="container-custom relative z-10 flex flex-col h-full justify-center py-16 md:py-20">
+          {/* Dual Mockups */}
+          <div className="relative flex justify-center items-end gap-2 sm:gap-3 md:gap-6 lg:gap-10 mb-4 md:mb-8">
+            {/* Mobile mockup */}
             <motion.div
               className="relative z-10"
-              style={{ y: mobileY, rotate: mobileRotate }}
-              initial={{ opacity: 0, x: -60 }}
+              style={{ y: mobileY }}
+              initial={{ opacity: 0, x: -40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.3 }}
+              transition={{ duration: 0.5 }}
             >
               <img
                 src={project.image}
                 alt={`${project.title} mobile`}
-                className="w-[100px] sm:w-[150px] md:w-[240px] lg:w-[320px] xl:w-[400px] h-auto drop-shadow-2xl rounded-2xl md:rounded-3xl"
+                loading="lazy"
+                className="w-[70px] sm:w-[100px] md:w-[140px] lg:w-[200px] xl:w-[280px] h-auto drop-shadow-xl rounded-xl md:rounded-2xl"
               />
             </motion.div>
 
-            {/* Laptop mockup - LARGER */}
+            {/* Laptop mockup */}
             <motion.div
               className="relative"
-              style={{ x: laptopX, scale: laptopScale }}
-              initial={{ opacity: 0, x: 60 }}
+              style={{ x: laptopX }}
+              initial={{ opacity: 0, x: 40 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.8, delay: 0.4 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
             >
               <img
                 src={project.secondaryImage}
                 alt={`${project.title} desktop`}
-                className="w-[180px] sm:w-[280px] md:w-[420px] lg:w-[550px] xl:w-[680px] h-auto drop-shadow-2xl"
+                loading="lazy"
+                className="w-[140px] sm:w-[200px] md:w-[300px] lg:w-[420px] xl:w-[540px] h-auto drop-shadow-xl"
               />
               
-              {/* Hotspots - only on larger screens */}
-              <div className="hidden md:block">
+              {/* Hotspots - only on lg screens */}
+              <div className="hidden lg:block">
                 {project.hotspots.map((hotspot, idx) => (
                   <HotspotDot
                     key={hotspot.id}
@@ -249,46 +248,44 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
                     isActive={activeHotspot === hotspot.id}
                     onHover={() => setActiveHotspot(hotspot.id)}
                     onLeave={() => setActiveHotspot(null)}
-                    delay={0.8 + idx * 0.1}
+                    delay={0.5 + idx * 0.08}
                   />
                 ))}
               </div>
             </motion.div>
           </div>
 
-          {/* Mobile: Feature badges below mockups */}
+          {/* Mobile/Tablet: Feature badges */}
           <motion.div
-            className="flex md:hidden flex-wrap justify-center gap-2 mt-4 px-4"
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            className="flex lg:hidden flex-wrap justify-center gap-1.5 md:gap-2 mb-4 px-4"
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.6 }}
           >
-            {project.hotspots.slice(0, 4).map((hotspot, idx) => (
+            {project.hotspots.slice(0, 4).map((hotspot) => (
               <span 
                 key={hotspot.id}
-                className="text-[10px] px-3 py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
+                className="text-[9px] md:text-[10px] px-2 md:px-3 py-1 md:py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
               >
                 {hotspot.label}
               </span>
             ))}
           </motion.div>
 
-          {/* Content BELOW mockups - centered */}
+          {/* Content - centered */}
           <motion.div
-            className="text-center max-w-xl mx-auto px-4 order-2"
-            style={{ opacity: contentOpacity }}
-            initial={{ opacity: 0, y: 30 }}
+            className="text-center max-w-lg mx-auto px-4"
+            initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            transition={{ duration: 0.6, delay: 0.5 }}
+            transition={{ duration: 0.4 }}
           >
-            <span className="inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3 py-1.5 bg-foreground/5 rounded-full">
-              <span className="w-1.5 h-1.5 bg-foreground/50 rounded-full" />
+            <span className="inline-flex items-center gap-1.5 text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-muted-foreground mb-2 px-2.5 py-1 bg-foreground/5 rounded-full">
+              <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-foreground/50 rounded-full" />
               Proyecto destacado
             </span>
-            <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 md:mb-4">{project.title}</h3>
-            <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-5 md:mb-8 max-w-md mx-auto leading-relaxed">
+            <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-2 md:mb-3">{project.title}</h3>
+            <p className="text-xs md:text-sm lg:text-base text-muted-foreground mb-4 md:mb-6 max-w-sm mx-auto leading-relaxed">
               {project.description}
             </p>
 
@@ -298,20 +295,22 @@ const DualMockupProjectCard = ({ project }: { project: Project }) => {
               rel="noopener noreferrer"
               variant="primary"
               size="sm"
-              className="rounded-xl whitespace-nowrap"
+              className="rounded-xl whitespace-nowrap text-[10px] md:text-xs px-4 md:px-5 py-2 md:py-2.5"
             >
               Ver proyecto
-              <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+              <ArrowRight className="w-3 h-3" />
             </PremiumLink>
           </motion.div>
         </div>
       </div>
     </div>
   );
-};
+});
 
-// Single mockup project - LARGER MOCKUPS
-const SingleMockupProjectCard = ({ project, index }: { project: Project; index: number }) => {
+DualMockupProjectCard.displayName = 'DualMockupProjectCard';
+
+// Single mockup project - OPTIMIZED for tablet
+const SingleMockupProjectCard = memo(({ project, index }: { project: Project; index: number }) => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [activeHotspot, setActiveHotspot] = useState<string | null>(null);
 
@@ -320,14 +319,13 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
     offset: ["start start", "end start"],
   });
 
-  const mockupY = useTransform(scrollYProgress, [0, 1], [0, -40]);
-  const mockupScale = useTransform(scrollYProgress, [0, 0.5, 1], [1, 1.02, 1.04]);
-  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -40 : 40]);
+  const mockupY = useTransform(scrollYProgress, [0, 0.5], [0, -25]);
+  const watermarkX = useTransform(scrollYProgress, [0, 1], [0, index % 2 === 0 ? -25 : 25]);
 
   return (
     <div 
       ref={containerRef}
-      className="relative min-h-[180vh]"
+      className="relative min-h-[150vh] md:min-h-[170vh]"
     >
       <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden bg-background">
         {/* Watermark */}
@@ -335,32 +333,33 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
           className="absolute inset-0 flex items-center justify-center pointer-events-none select-none overflow-hidden"
           style={{ x: watermarkX }}
         >
-          <span className="text-[12vw] sm:text-[15vw] md:text-[18vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.03]">
+          <span className="text-[10vw] sm:text-[12vw] md:text-[14vw] lg:text-[16vw] font-bold tracking-tighter whitespace-nowrap text-foreground/[0.02]">
             {project.watermark}
           </span>
         </motion.div>
 
-        <div className="container-custom relative z-10 pt-16 md:pt-20">
-          <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-6 md:gap-10 lg:gap-16`}>
+        <div className="container-custom relative z-10 py-12 md:py-16">
+          <div className={`flex flex-col ${index % 2 === 0 ? 'lg:flex-row' : 'lg:flex-row-reverse'} items-center gap-4 md:gap-6 lg:gap-12`}>
             
-            {/* Mockup - LARGER with rounded corners */}
+            {/* Mockup - optimized for tablet */}
             <motion.div
-              className="relative w-full lg:w-[60%] flex justify-center"
-              style={{ y: mockupY, scale: mockupScale }}
-              initial={{ opacity: 0, y: 60 }}
+              className="relative w-full lg:w-[55%] flex justify-center"
+              style={{ y: mockupY }}
+              initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.2 }}
+              transition={{ duration: 0.5 }}
             >
               <div className="relative">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-[280px] sm:w-[380px] md:w-[500px] lg:w-[600px] xl:w-[720px] h-auto drop-shadow-2xl"
+                  loading="lazy"
+                  className="w-[200px] sm:w-[260px] md:w-[340px] lg:w-[460px] xl:w-[560px] h-auto drop-shadow-xl"
                 />
                 
-                {/* Hotspots - only on larger screens */}
-                <div className="hidden md:block">
+                {/* Hotspots - only on lg screens */}
+                <div className="hidden lg:block">
                   {project.hotspots.map((hotspot, idx) => (
                     <HotspotDot
                       key={hotspot.id}
@@ -368,23 +367,22 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
                       isActive={activeHotspot === hotspot.id}
                       onHover={() => setActiveHotspot(hotspot.id)}
                       onLeave={() => setActiveHotspot(null)}
-                      delay={0.6 + idx * 0.1}
+                      delay={0.4 + idx * 0.08}
                     />
                   ))}
                 </div>
                 
-                {/* Mobile: Feature badges */}
+                {/* Mobile/Tablet: Feature badges */}
                 <motion.div
-                  className="flex md:hidden flex-wrap justify-center gap-2 mt-4"
-                  initial={{ opacity: 0, y: 15 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  className="flex lg:hidden flex-wrap justify-center gap-1.5 md:gap-2 mt-3"
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true }}
-                  transition={{ duration: 0.4, delay: 0.5 }}
                 >
                   {project.hotspots.slice(0, 4).map((hotspot) => (
                     <span 
                       key={hotspot.id}
-                      className="text-[10px] px-3 py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
+                      className="text-[9px] md:text-[10px] px-2 md:px-3 py-1 md:py-1.5 bg-foreground/5 rounded-full text-muted-foreground"
                     >
                       {hotspot.label}
                     </span>
@@ -395,18 +393,18 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
 
             {/* Content */}
             <motion.div
-              className={`w-full lg:w-[40%] text-center ${index % 2 === 0 ? 'lg:text-left' : 'lg:text-right'} px-4`}
-              initial={{ opacity: 0, x: index % 2 === 0 ? -40 : 40 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              className={`w-full lg:w-[45%] text-center ${index % 2 === 0 ? 'lg:text-left' : 'lg:text-right'} px-4`}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.7, delay: 0.3 }}
+              transition={{ duration: 0.4 }}
             >
-              <span className={`inline-flex items-center gap-2 text-[10px] md:text-xs uppercase tracking-[0.2em] text-muted-foreground mb-3 px-3 py-1.5 bg-foreground/5 rounded-full ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}>
-                <span className="w-1.5 h-1.5 bg-foreground/50 rounded-full" />
+              <span className={`inline-flex items-center gap-1.5 text-[9px] md:text-[10px] uppercase tracking-[0.15em] text-muted-foreground mb-2 px-2.5 py-1 bg-foreground/5 rounded-full ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}>
+                <span className="w-1 h-1 md:w-1.5 md:h-1.5 bg-foreground/50 rounded-full" />
                 Proyecto destacado
               </span>
-              <h3 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold tracking-tight mb-3 md:mb-4">{project.title}</h3>
-              <p className="text-sm md:text-base lg:text-lg text-muted-foreground mb-5 md:mb-8 max-w-sm mx-auto lg:mx-0 leading-relaxed">
+              <h3 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold tracking-tight mb-2 md:mb-3">{project.title}</h3>
+              <p className="text-xs md:text-sm lg:text-base text-muted-foreground mb-4 md:mb-6 max-w-xs sm:max-w-sm mx-auto lg:mx-0 leading-relaxed">
                 {project.description}
               </p>
 
@@ -416,10 +414,10 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
                 rel="noopener noreferrer"
                 variant="primary"
                 size="sm"
-                className={`rounded-xl whitespace-nowrap ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
+                className={`rounded-xl whitespace-nowrap text-[10px] md:text-xs px-4 md:px-5 py-2 md:py-2.5 ${index % 2 !== 0 ? 'lg:ml-auto' : ''}`}
               >
                 Ver proyecto
-                <ArrowRight className="w-3 h-3 md:w-4 md:h-4" />
+                <ArrowRight className="w-3 h-3" />
               </PremiumLink>
             </motion.div>
           </div>
@@ -427,8 +425,9 @@ const SingleMockupProjectCard = ({ project, index }: { project: Project; index: 
       </div>
     </div>
   );
-};
+});
 
+SingleMockupProjectCard.displayName = 'SingleMockupProjectCard';
 const ProjectsSection = () => {
   const headerRef = useRef<HTMLDivElement>(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-100px" });
